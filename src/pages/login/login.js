@@ -5,7 +5,7 @@ import "./login.scss";
 const Login = () => {
     return (
         <div className="login">
-            <div className="formContainer">
+            <div className="formContainer fade">
                 <LoginForm />
             </div>
         </div>
