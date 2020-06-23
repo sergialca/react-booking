@@ -5,8 +5,8 @@ import Login from "./pages/login/login";
 function App() {
     return (
         <Switch>
-            <Route path="/home" component={Login} />
-            <Redirect from="/" to="/home" />
+            <Route path="/login" component={Login} />
+            <Redirect from="/" to="/login" />
         </Switch>
     );
 }

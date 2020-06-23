@@ -1,0 +1,55 @@
+@import "../../styles/font";
+
+.loginTxt {
+    text-align: center;
+    @include title();
+}
+.loginForm {
+    padding: 0px;
+    .inputWrapper {
+        background-color: #ccc;
+        width: 200px;
+        padding: 10px 20px;
+        border-radius: 250px;
+        .input {
+            height: 20px;
+            padding: 0;
+            width: 80%;
+            margin-left: 10px;
+            vertical-align: top;
+            background-color: #ccc;
+        }
+    }
+    .space {
+        margin: 0 auto 20px auto;
+    }
+    .loginBtnWrapper {
+        text-align: center;
+        .loginBtn {
+            width: 100px;
+            width: 240px;
+            padding: 10px 20px;
+            border-radius: 250px;
+            margin: 0 auto;
+            border-width: 0px;
+            border-style: none;
+            background-color: $primary-color;
+            margin-bottom: 10px;
+        }
+        .loginBtn:hover {
+            background-color: $hover-color;
+        }
+    }
+
+    .recover {
+        text-align: center;
+        font-size: 12px;
+        a {
+            text-decoration: none;
+            color: $primary-color;
+        }
+        a:hover {
+            color: $hover-color;
+        }
+    }
+}
