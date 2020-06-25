@@ -26,20 +26,6 @@
     }
     .loginBtnWrapper {
         text-align: center;
-        .loginBtn {
-            width: 100px;
-            width: 240px;
-            padding: 10px 20px;
-            border-radius: 250px;
-            margin: 0 auto;
-            border-width: 0px;
-            border-style: none;
-            background-color: $primary-color;
-            margin-bottom: 10px;
-        }
-        .loginBtn:hover {
-            background-color: $hover-color;
-        }
     }
 
     .recover {
