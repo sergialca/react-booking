@@ -3,9 +3,8 @@ import { MdMail } from "react-icons/md";
 import { BsLockFill } from "react-icons/bs";
 import SubmitButton from "../submitButton/submitButton";
 import Parse from "parse";
-import "./loginForm.scss";
 
-const LoginForm = () => {
+const RegisterForm = () => {
     const [account, setAccount] = useState({ user: "", psw: "" });
     const [mailError, setMailError] = useState("");
     const [pswError, setPswError] = useState("");
@@ -50,7 +49,7 @@ const LoginForm = () => {
         }
     };
 
-    const logIn = (e) => {
+    const signIn = (e) => {
         e.preventDefault();
         const mail = validMail();
         const psw = validPsw();
@@ -69,8 +68,8 @@ const LoginForm = () => {
 
     return (
         <div className="formWrapper">
-            <p className="loginTxt">Login</p>
-            <form className="loginForm" onSubmit={logIn}>
+            <p className="loginTxt">Sign In</p>
+            <form className="loginForm" onSubmit={signIn}>
                 <div className="inputWrapper center">
                     <span className="svg">
                         <MdMail />
@@ -99,7 +98,7 @@ const LoginForm = () => {
                 </div>
                 <div className="loginError">{pswError}</div>
                 <div className="loginBtnWrapper space">
-                    <SubmitButton txt="login" />
+                    <SubmitButton txt="sign in" />
                 </div>
                 <div className="space recover">
                     <span>
@@ -111,4 +110,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default RegisterForm;
