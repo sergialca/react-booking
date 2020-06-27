@@ -62,7 +62,7 @@ const LoginForm = () => {
         if (mail && psw) {
             Parse.User.logIn(account.mail, account.psw)
                 .then((user) => {
-                    console.log("LOGEDIN");
+                    console.log("User LOGEDIN", JSON.stringify(user));
                     setLoading(false);
                 })
                 .catch((error) => {

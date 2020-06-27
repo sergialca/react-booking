@@ -3,6 +3,8 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Parse from "parse";
 import Login from "./pages/login/login";
 import Register from "./pages/register/register";
+import { LangProvider } from "./context/lang";
+import { UserProvider } from "./context/user";
 
 function App() {
     Parse.serverURL = "https://parseapi.back4app.com"; // This is your Server URL
@@ -11,11 +13,15 @@ function App() {
         "YxSrKWAZV2eZw5riHbZWbKr75aBjr2NyuKrll60W" // This is your Javascript key
     );
     return (
-        <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Redirect from="/" to="/login" />
-        </Switch>
+        <LangProvider>
+            <UserProvider>
+                <Switch>
+                    <Route path="/login" component={Login} />
+                    <Route path="/register" component={Register} />
+                    <Redirect from="/" to="/login" />
+                </Switch>
+            </UserProvider>
+        </LangProvider>
     );
 }
 
