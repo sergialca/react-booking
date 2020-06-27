@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import { MdMail } from "react-icons/md";
-import { BsLockFill } from "react-icons/bs";
+import { MdMail, MdInfo } from "react-icons/md";
+import { BsLockFill, BsPersonFill } from "react-icons/bs";
 import SubmitButton from "../submitButton/submitButton";
+import Input from "../input/input";
 import Parse from "parse";
+import "./registerForm.scss";
 
-const RegisterForm = () => {
-    const [account, setAccount] = useState({ user: "", psw: "" });
+const RegisterForm = ({ showAlert }) => {
+    const [account, setAccount] = useState({ user: "", psw: "", name: "", rePsw: "" });
     const [mailError, setMailError] = useState("");
     const [pswError, setPswError] = useState("");
+    const [rePswError, setRePswError] = useState("");
+    const [nameError, setNameError] = useState("");
 
     const accountChange = (e) => {
         setAccount({
@@ -37,7 +41,7 @@ const RegisterForm = () => {
     const validPsw = () => {
         if (account.psw && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(account.psw)) {
             setPswError(
-                "La contraseña debe contener 8 carácteres mínimo, una mayúscula, una minúscula y un número"
+                "La contraseña debe contener mínimo 8 carácteres, una mayúscula, una minúscula y un número"
             );
             return false;
         } else if (!account.psw) {
@@ -49,61 +53,100 @@ const RegisterForm = () => {
         }
     };
 
+    const validRePsw = () => {
+        if (account.psw !== account.rePsw) {
+            setRePswError("Las contraseñas no coinciden");
+            return false;
+        } else if (!account.rePsw) {
+            setRePswError("Contraseña requerida");
+            return false;
+        } else {
+            setRePswError("");
+            return true;
+        }
+    };
+
+    const validName = () => {
+        if (!account.name) {
+            setNameError("Nombre requerido");
+            return false;
+        } else {
+            setNameError("");
+            return true;
+        }
+    };
+
     const signIn = (e) => {
         e.preventDefault();
         const mail = validMail();
+        const name = validName();
         const psw = validPsw();
-        if (mail && psw) {
-            Parse.User.logIn(account.user, account.psw)
-                .then((user) => {
-                    console.log("LOGEDIN");
-                })
-                .catch((error) => {
-                    if (typeof document !== "undefined")
-                        document.write(`Error while logging in user: ${JSON.stringify(error)}`);
-                    console.error("Error while logging in user", error);
-                });
+        const rePsw = validRePsw();
+
+        if (mail && psw && rePsw && name) {
+            console.log("buen registro");
         }
     };
 
     return (
         <div className="formWrapper">
-            <p className="loginTxt">Sign In</p>
-            <form className="loginForm" onSubmit={signIn}>
-                <div className="inputWrapper center">
+            <p className="signinTxt">Sign In</p>
+            <form className="signinForm" onSubmit={signIn}>
+                <Input
+                    name="name"
+                    account={account.name}
+                    accountChange={accountChange}
+                    placeholder="Nombre completo"
+                    type=""
+                >
+                    <span className="svg">
+                        <BsPersonFill />
+                    </span>
+                </Input>
+                <div className="signinError">{nameError}</div>
+                <Input
+                    name="mail"
+                    account={account.mail}
+                    accountChange={accountChange}
+                    placeholder="Mail"
+                    type="mail"
+                >
                     <span className="svg">
                         <MdMail />
                     </span>
-                    <input
-                        className="input"
-                        name="user"
-                        value={account.user}
-                        onChange={accountChange}
-                        placeholder="username"
-                    ></input>
+                </Input>
+                <div className="signinError">{mailError}</div>
+                <div className="inputInfoContainer space">
+                    <div className="inputInfoWrapper">
+                        <span>
+                            <BsLockFill />
+                        </span>
+                        <input
+                            className="inputInfo"
+                            name="psw"
+                            type="password"
+                            value={account.psw}
+                            onChange={accountChange}
+                            placeholder="Contraseña"
+                        />
+                    </div>
+                    <MdInfo onClick={() => showAlert()} className="info" />
                 </div>
-                <div className="loginError">{mailError}</div>
-                <div className="inputWrapper center space">
+                <div className="signinError">{pswError}</div>
+                <Input
+                    name="rePsw"
+                    account={account.rePsw}
+                    accountChange={accountChange}
+                    placeholder="Repetir contraseña"
+                    type="password"
+                >
                     <span>
                         <BsLockFill />
                     </span>
-                    <input
-                        className="input"
-                        name="psw"
-                        type="password"
-                        value={account.psw}
-                        onChange={accountChange}
-                        placeholder="password"
-                    ></input>
-                </div>
-                <div className="loginError">{pswError}</div>
-                <div className="loginBtnWrapper space">
+                </Input>
+                <div className="signinError">{rePswError}</div>
+                <div className="signinBtnWrapper space">
                     <SubmitButton txt="sign in" />
-                </div>
-                <div className="space recover">
-                    <span>
-                        Recuperar <a href="mailto:support@gmail.com">usuario y contraseña</a>
-                    </span>
                 </div>
             </form>
         </div>

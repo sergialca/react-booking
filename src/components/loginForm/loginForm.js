@@ -80,7 +80,7 @@ const LoginForm = () => {
                         name="user"
                         value={account.user}
                         onChange={accountChange}
-                        placeholder="username"
+                        placeholder="mail"
                     ></input>
                 </div>
                 <div className="loginError">{mailError}</div>

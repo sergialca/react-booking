@@ -1,22 +1,15 @@
 @import "../../styles/font";
+
 .submitBtn {
-    width: 100px;
-    width: 240px;
-    padding: 10px 20px;
-    border-radius: 250px;
-    margin: 0 auto;
-    border-width: 0px;
-    border-style: none;
-    background-color: $primary-color;
+    @include primaryBtn(240px);
     margin-bottom: 10px;
-    cursor: pointer;
 }
 .submitBtn:hover {
-    background-color: $hover-color;
+    @include primaryBtnHover();
 }
 .submitBtn:focus {
-    outline: none;
+    @include primaryBtnFocus();
 }
 .submitBtn:active {
-    background-color: $active-color;
+    @include primaryBtnActive();
 }

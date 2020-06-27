@@ -1,0 +1,92 @@
+@import "../../styles/font";
+$info-width: 30px;
+.signinTxt {
+    text-align: center;
+    margin-top: 40px;
+    @include title();
+}
+.signinForm {
+    padding: 0px;
+    @include inputReset();
+    .inputWrapper {
+        background-color: #ccc;
+        width: 200px;
+        padding: 10px 20px;
+        border-radius: 250px;
+        .input {
+            height: 20px;
+            padding: 0;
+            width: 80%;
+            margin-left: 10px;
+            vertical-align: top;
+            background-color: #ccc;
+        }
+    }
+    .inputInfoContainer {
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .inputInfoWrapper {
+            background-color: #ccc;
+            width: 200px;
+            padding: 10px 20px;
+            border-radius: 250px;
+            margin-left: $info-width;
+            .inputInfo {
+                height: 20px;
+                padding: 0;
+                width: 80%;
+                vertical-align: top;
+                margin-left: 10px;
+                background-color: #ccc;
+            }
+        }
+        .info {
+            width: $info-width;
+            height: $info-width;
+            color: $info-color;
+            cursor: pointer;
+        }
+
+        .info:active {
+            color: $active-color;
+        }
+    }
+    .center {
+        margin: 0 auto;
+    }
+    .signinError {
+        width: 200px;
+        margin: 0 auto;
+        color: $error-color;
+        font-size: 12px;
+    }
+    .signinError:after {
+        color: #fff;
+        content: "-";
+    }
+    .signinValid {
+        width: 200px;
+        margin: 0 auto;
+        color: #fff;
+        font-size: 12px;
+    }
+    .space {
+        margin-top: 10px;
+    }
+    .signinBtnWrapper {
+        text-align: center;
+    }
+    .recover {
+        text-align: center;
+        font-size: 12px;
+        a {
+            text-decoration: none;
+            color: $primary-color;
+        }
+        a:hover {
+            color: $hover-color;
+        }
+    }
+}
