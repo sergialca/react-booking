@@ -12,6 +12,7 @@ const RegisterForm = ({ showAlert }) => {
     const [pswError, setPswError] = useState("");
     const [rePswError, setRePswError] = useState("");
     const [nameError, setNameError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const accountChange = (e) => {
         setAccount({
@@ -77,15 +78,15 @@ const RegisterForm = ({ showAlert }) => {
     };
 
     const signIn = (e) => {
+        setLoading(true);
         e.preventDefault();
         const mail = validMail();
         const name = validName();
         const psw = validPsw();
         const rePsw = validRePsw();
-
         if (mail && psw && rePsw && name) {
             console.log("buen registro");
-        }
+        } else setLoading(false);
     };
 
     return (
@@ -145,8 +146,8 @@ const RegisterForm = ({ showAlert }) => {
                     </span>
                 </Input>
                 <div className="signinError">{rePswError}</div>
-                <div className="signinBtnWrapper space">
-                    <SubmitButton txt="sign in" />
+                <div className="signinBtnWrapper">
+                    <SubmitButton loading={loading} txt="sign in" />
                 </div>
             </form>
         </div>

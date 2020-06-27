@@ -20,11 +20,24 @@
         @include fade(1s, 0.2s);
     }
 
+    .linkWrap {
+        margin-top: 10px;
+        text-align: center;
+        a {
+            text-decoration: none;
+            color: $primary-color;
+        }
+        a:hover {
+            color: $hover-color;
+        }
+    }
+
     /*Medium devices (tablets, 768px and up)*/
     @media (min-width: 768px) {
         .formContainer {
             width: 30%;
             height: 70%;
+            min-height: 390px;
         }
     }
 

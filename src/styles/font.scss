@@ -76,6 +76,13 @@ $info-color: #6100cc;
     textarea:-ms-input-placeholder {
         color: #777777;
     }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+        box-shadow: 0 0 0px 1000px #ccc inset;
+        -webkit-box-shadow: 0 0 0px 1000px #ccc inset;
+        background-color: #ccc !important;
+    }
 }
 @keyframes fadeIn {
     from {

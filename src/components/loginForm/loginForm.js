@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import { MdMail } from "react-icons/md";
 import { BsLockFill } from "react-icons/bs";
 import SubmitButton from "../submitButton/submitButton";
+import Input from "../input/input";
 import Parse from "parse";
 import "./loginForm.scss";
 
 const LoginForm = () => {
-    const [account, setAccount] = useState({ user: "", psw: "" });
+    const [account, setAccount] = useState({ mail: "", psw: "" });
     const [mailError, setMailError] = useState("");
     const [pswError, setPswError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const accountChange = (e) => {
+        setMailError("");
+        setPswError("");
         setAccount({
             ...account,
             [e.target.name]: e.target.value,
@@ -19,14 +23,14 @@ const LoginForm = () => {
 
     const validMail = () => {
         if (
-            account.user &&
+            account.mail &&
             !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-                account.user
+                account.mail
             )
         ) {
             setMailError("Mail no válido");
             return false;
-        } else if (!account.user) {
+        } else if (!account.mail) {
             setMailError("Mail requerido");
             return false;
         } else {
@@ -52,54 +56,54 @@ const LoginForm = () => {
 
     const logIn = (e) => {
         e.preventDefault();
+        setLoading(true);
         const mail = validMail();
         const psw = validPsw();
         if (mail && psw) {
-            Parse.User.logIn(account.user, account.psw)
+            Parse.User.logIn(account.mail, account.psw)
                 .then((user) => {
                     console.log("LOGEDIN");
+                    setLoading(false);
                 })
                 .catch((error) => {
+                    setLoading(false);
                     if (typeof document !== "undefined")
                         document.write(`Error while logging in user: ${JSON.stringify(error)}`);
                     console.error("Error while logging in user", error);
                 });
-        }
+        } else setLoading(false);
     };
 
     return (
         <div className="formWrapper">
             <p className="loginTxt">Login</p>
             <form className="loginForm" onSubmit={logIn}>
-                <div className="inputWrapper center">
+                <Input
+                    name="mail"
+                    account={account.mail}
+                    accountChange={accountChange}
+                    placeholder="Mail"
+                    type="mail"
+                >
                     <span className="svg">
                         <MdMail />
                     </span>
-                    <input
-                        className="input"
-                        name="user"
-                        value={account.user}
-                        onChange={accountChange}
-                        placeholder="mail"
-                    ></input>
-                </div>
+                </Input>
                 <div className="loginError">{mailError}</div>
-                <div className="inputWrapper center space">
+                <Input
+                    name="psw"
+                    account={account.psw}
+                    accountChange={accountChange}
+                    placeholder="Contraseña"
+                    type="password"
+                >
                     <span>
                         <BsLockFill />
                     </span>
-                    <input
-                        className="input"
-                        name="psw"
-                        type="password"
-                        value={account.psw}
-                        onChange={accountChange}
-                        placeholder="password"
-                    ></input>
-                </div>
+                </Input>
                 <div className="loginError">{pswError}</div>
                 <div className="loginBtnWrapper space">
-                    <SubmitButton txt="login" />
+                    <SubmitButton loading={loading} txt="login" />
                 </div>
                 <div className="space recover">
                     <span>
