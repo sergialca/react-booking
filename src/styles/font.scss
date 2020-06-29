@@ -141,3 +141,18 @@ $info-color: #6100cc;
 @mixin primaryBtnActive() {
     background-color: $active-color;
 }
+
+@mixin resetSelect() {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background-image: none;
+    select::-ms-expand {
+        display: none;
+    }
+}
+/* Remove IE arrow */

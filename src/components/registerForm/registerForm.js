@@ -7,11 +7,8 @@ import Parse from "parse";
 import "./registerForm.scss";
 
 const RegisterForm = ({ showAlert }) => {
-    const [account, setAccount] = useState({ user: "", psw: "", name: "", rePsw: "" });
-    const [mailError, setMailError] = useState("");
-    const [pswError, setPswError] = useState("");
-    const [rePswError, setRePswError] = useState("");
-    const [nameError, setNameError] = useState("");
+    const [account, setAccount] = useState({ mail: "", psw: "", name: "", rePsw: "" });
+    const [error, setError] = useState({ mail: "", psw: "", rePsw: "", name: "" });
     const [loading, setLoading] = useState(false);
 
     const accountChange = (e) => {
@@ -23,63 +20,70 @@ const RegisterForm = ({ showAlert }) => {
 
     const validMail = () => {
         if (
-            account.user &&
+            account.mail &&
             !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-                account.user
+                account.mail
             )
         ) {
-            setMailError("Mail no válido");
+            setError((error) => ({ ...error, mail: "Mail no válido" }));
             return false;
         } else if (!account.user) {
-            setMailError("Mail requerido");
+            setError((error) => ({ ...error, mail: "Mail requerido" }));
             return false;
         } else {
-            setMailError("");
+            setError((error) => ({ ...error, mail: "" }));
             return true;
         }
     };
 
     const validPsw = () => {
         if (account.psw && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(account.psw)) {
-            setPswError(
-                "La contraseña debe contener mínimo 8 carácteres, una mayúscula, una minúscula y un número"
-            );
+            setError((error) => ({
+                ...error,
+                psw: "La contraseña debe contener mínimo 8 carácteres",
+            }));
             return false;
         } else if (!account.psw) {
-            setPswError("Contraseña requerida");
+            setError((error) => ({
+                ...error,
+                psw: "Contraseña requerida",
+            }));
             return false;
         } else {
-            setPswError("");
+            setError((error) => ({
+                ...error,
+                psw: "",
+            }));
             return true;
         }
     };
 
     const validRePsw = () => {
         if (account.psw !== account.rePsw) {
-            setRePswError("Las contraseñas no coinciden");
+            setError((error) => ({ ...error, rePsw: "Las contraseñas no coinciden" }));
             return false;
         } else if (!account.rePsw) {
-            setRePswError("Contraseña requerida");
+            setError((error) => ({ ...error, rePsw: "Las contraseñas no coinciden" }));
             return false;
         } else {
-            setRePswError("");
+            setError((error) => ({ ...error, rePsw: "" }));
             return true;
         }
     };
 
     const validName = () => {
         if (!account.name) {
-            setNameError("Nombre requerido");
+            setError((error) => ({ ...error, name: "Nombre requerido" }));
             return false;
         } else {
-            setNameError("");
+            setError((error) => ({ ...error, name: "" }));
             return true;
         }
     };
 
     const signIn = (e) => {
-        setLoading(true);
         e.preventDefault();
+        setLoading(true);
         const mail = validMail();
         const name = validName();
         const psw = validPsw();
@@ -104,7 +108,7 @@ const RegisterForm = ({ showAlert }) => {
                         <BsPersonFill />
                     </span>
                 </Input>
-                <div className="signinError">{nameError}</div>
+                <div className="signinError">{error.name}</div>
                 <Input
                     name="mail"
                     account={account.mail}
@@ -116,7 +120,7 @@ const RegisterForm = ({ showAlert }) => {
                         <MdMail />
                     </span>
                 </Input>
-                <div className="signinError">{mailError}</div>
+                <div className="signinError">{error.mail}</div>
                 <div className="inputInfoContainer space">
                     <div className="inputInfoWrapper">
                         <span>
@@ -133,7 +137,7 @@ const RegisterForm = ({ showAlert }) => {
                     </div>
                     <MdInfo onClick={() => showAlert()} className="info" />
                 </div>
-                <div className="signinError">{pswError}</div>
+                <div className="signinError">{error.psw}</div>
                 <Input
                     name="rePsw"
                     account={account.rePsw}
@@ -145,7 +149,7 @@ const RegisterForm = ({ showAlert }) => {
                         <BsLockFill />
                     </span>
                 </Input>
-                <div className="signinError">{rePswError}</div>
+                <div className="signinError">{error.rePsw}</div>
                 <div className="signinBtnWrapper">
                     <SubmitButton loading={loading} txt="sign in" />
                 </div>
