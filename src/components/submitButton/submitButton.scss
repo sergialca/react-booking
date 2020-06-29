@@ -8,12 +8,6 @@
         padding-left: 40px;
         position: absolute;
     }
-
-    @media (min-width: 768px) {
-        .input {
-            font-size: $desktop-font;
-        }
-    }
 }
 .submitBtn:hover {
     @include primaryBtnHover();
@@ -23,4 +17,10 @@
 }
 .submitBtn:active {
     @include primaryBtnActive();
+}
+
+@media (min-width: 768px) {
+    .submitBtn {
+        font-size: $desktop-font;
+    }
 }

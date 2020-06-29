@@ -76,7 +76,7 @@ const LoginForm = () => {
 
     return (
         <div className="formWrapper">
-            <p className="loginTxt">Login</p>
+            <p className="loginTxt">Log in</p>
             <form className="loginForm" onSubmit={logIn}>
                 <Input
                     name="mail"
@@ -103,7 +103,7 @@ const LoginForm = () => {
                 </Input>
                 <div className="loginError">{pswError}</div>
                 <div className="loginBtnWrapper space">
-                    <SubmitButton loading={loading} txt="login" />
+                    <SubmitButton loading={loading} txt="Log in" />
                 </div>
                 <div className="space recover">
                     <span>

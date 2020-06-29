@@ -95,7 +95,7 @@ const RegisterForm = ({ showAlert }) => {
 
     return (
         <div className="formWrapper">
-            <p className="signinTxt">Sign In</p>
+            <p className="signinTxt">Sign up</p>
             <form className="signinForm" onSubmit={signIn}>
                 <Input
                     name="name"
@@ -151,7 +151,7 @@ const RegisterForm = ({ showAlert }) => {
                 </Input>
                 <div className="signinError">{error.rePsw}</div>
                 <div className="signinBtnWrapper">
-                    <SubmitButton loading={loading} txt="sign in" />
+                    <SubmitButton loading={loading} txt="Sign up" />
                 </div>
             </form>
         </div>
