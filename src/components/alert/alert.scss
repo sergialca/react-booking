@@ -32,13 +32,14 @@
             display: flex;
             align-items: flex-end;
             flex-wrap: wrap;
-            @include fade(0.8s, 0.1s);
+            @include fade(0.8s, 0s);
 
             .btnWrap {
                 width: 100%;
                 text-align: center;
                 .btn {
                     @include primaryBtn(100px);
+                    font-size: $mobile-font;
                 }
                 .btn:hover {
                     @include primaryBtnHover();
@@ -63,6 +64,9 @@
                 min-width: 40%;
                 height: 30%;
                 min-height: 30%;
+                .btnWrap .btn {
+                    font-size: $desktop-font;
+                }
             }
         }
     }
