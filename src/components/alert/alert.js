@@ -7,7 +7,7 @@ const Alert = ({ txt, aceptar, txtBtn, display }) => {
             <div className="container">
                 <div className="info">
                     <div className="txtWrap">
-                        <span>{txt}</span>
+                        <span className="txt">{txt}</span>
                     </div>
                     <div className="btnWrap">
                         <button className="btn" onClick={() => aceptar()}>
