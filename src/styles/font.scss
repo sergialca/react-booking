@@ -3,6 +3,8 @@ $hover-color: #00d6fc;
 $active-color: #00fcfc;
 $error-color: #cc0000;
 $info-color: #6100cc;
+$mobile-font: 16px;
+$desktop-font: 12px;
 
 @mixin title() {
     font-size: 18px;

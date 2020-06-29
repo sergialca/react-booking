@@ -12,8 +12,15 @@
         margin-left: 10px;
         vertical-align: top;
         background-color: #ccc;
+        font-size: $mobile-font;
     }
     .center {
         margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+        .input {
+            font-size: $desktop-font;
+        }
     }
 }
