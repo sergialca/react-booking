@@ -3,9 +3,16 @@
 .submitBtn {
     @include primaryBtn(240px);
     margin: 10px auto;
+    font-size: $mobile-font;
     .spin {
         padding-left: 40px;
         position: absolute;
+    }
+
+    @media (min-width: 768px) {
+        .input {
+            font-size: $desktop-font;
+        }
     }
 }
 .submitBtn:hover {
