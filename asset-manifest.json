@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/react-booking/static/css/main.09a075c1.chunk.css",
+    "main.css": "/react-booking/static/css/main.24de91a4.chunk.css",
     "main.js": "/react-booking/static/js/main.56580012.chunk.js",
     "main.js.map": "/react-booking/static/js/main.56580012.chunk.js.map",
     "runtime-main.js": "/react-booking/static/js/runtime-main.82cb330d.js",
@@ -8,15 +8,15 @@
     "static/js/2.5d728257.chunk.js": "/react-booking/static/js/2.5d728257.chunk.js",
     "static/js/2.5d728257.chunk.js.map": "/react-booking/static/js/2.5d728257.chunk.js.map",
     "index.html": "/react-booking/index.html",
-    "precache-manifest.6d1b5da02e6c87be8e74c08a7b730fa5.js": "/react-booking/precache-manifest.6d1b5da02e6c87be8e74c08a7b730fa5.js",
+    "precache-manifest.668ec298df760025ad042dd39cfa8d92.js": "/react-booking/precache-manifest.668ec298df760025ad042dd39cfa8d92.js",
     "service-worker.js": "/react-booking/service-worker.js",
-    "static/css/main.09a075c1.chunk.css.map": "/react-booking/static/css/main.09a075c1.chunk.css.map",
+    "static/css/main.24de91a4.chunk.css.map": "/react-booking/static/css/main.24de91a4.chunk.css.map",
     "static/js/2.5d728257.chunk.js.LICENSE.txt": "/react-booking/static/js/2.5d728257.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.82cb330d.js",
     "static/js/2.5d728257.chunk.js",
-    "static/css/main.09a075c1.chunk.css",
+    "static/css/main.24de91a4.chunk.css",
     "static/js/main.56580012.chunk.js"
   ]
 }
