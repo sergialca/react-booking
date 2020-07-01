@@ -1,7 +1,7 @@
 @import "../../styles/font";
 
 .submitBtn {
-    @include primaryBtn(240px);
+    @include primaryBtn(270px);
     margin: 10px auto;
     font-size: $mobile-font;
     .spin {

@@ -63,7 +63,7 @@ const RegisterForm = ({ showAlert }) => {
             setError((error) => ({ ...error, rePsw: "Las contraseñas no coinciden" }));
             return false;
         } else if (!account.rePsw) {
-            setError((error) => ({ ...error, rePsw: "Las contraseñas no coinciden" }));
+            setError((error) => ({ ...error, rePsw: "Campo requerido" }));
             return false;
         } else {
             setError((error) => ({ ...error, rePsw: "" }));
