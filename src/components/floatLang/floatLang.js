@@ -14,7 +14,7 @@ const FloatLang = ({ fnSelect }) => {
         }
     };
     return (
-        <div class="selectWrap">
+        <div className="selectWrap">
             <select className="select" onChange={select}>
                 <option value="es">ESP</option>
                 <option value="ca">CAT</option>
