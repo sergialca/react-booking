@@ -1,0 +1,14 @@
+{
+    "pswRule": "La contrasenya ha de contenir mínim 8 caràcters, una majúsucula, una minúscula i un número.",
+    "accept": "Acceptar",
+    "pswRequired": "Contrasenya obligatoria",
+    "pswPlaceholder": "Contrasenya",
+    "loginTitle": "Entrar",
+    "signup": "Crear un compte",
+    "submitBtn": "Entrar",
+    "recoveryTxt": "Recuperar",
+    "recoveryA": "usuari i contrasenya",
+    "mailPlaceholder": "Mail",
+    "mailError": "Mail no vàlid",
+    "mailRequired": "Mail obligatori"
+}

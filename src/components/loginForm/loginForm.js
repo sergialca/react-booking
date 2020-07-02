@@ -6,7 +6,7 @@ import Input from "../input/input";
 import Parse from "parse";
 import "./loginForm.scss";
 
-const LoginForm = () => {
+const LoginForm = ({ content }) => {
     const [account, setAccount] = useState({ mail: "", psw: "" });
     const [mailError, setMailError] = useState("");
     const [pswError, setPswError] = useState("");
@@ -28,10 +28,10 @@ const LoginForm = () => {
                 account.mail
             )
         ) {
-            setMailError("Mail no válido");
+            setMailError(content.mailError);
             return false;
         } else if (!account.mail) {
-            setMailError("Mail requerido");
+            setMailError(content.mailRequired);
             return false;
         } else {
             setMailError("");
@@ -41,12 +41,10 @@ const LoginForm = () => {
 
     const validPsw = () => {
         if (account.psw && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(account.psw)) {
-            setPswError(
-                "La contraseña debe contener 8 carácteres mínimo, una mayúscula, una minúscula y un número"
-            );
+            setPswError(content.pswRule);
             return false;
         } else if (!account.psw) {
-            setPswError("Contraseña requerida");
+            setPswError(content.pswRequired);
             return false;
         } else {
             setPswError("");
@@ -63,20 +61,21 @@ const LoginForm = () => {
             Parse.User.logIn(account.mail, account.psw)
                 .then((user) => {
                     console.log("User LOGEDIN", JSON.stringify(user));
-                    setLoading(false);
                 })
                 .catch((error) => {
-                    setLoading(false);
                     if (typeof document !== "undefined")
                         document.write(`Error while logging in user: ${JSON.stringify(error)}`);
                     console.error("Error while logging in user", error);
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
         } else setLoading(false);
     };
 
     return (
         <div className="formWrapper">
-            <p className="loginTxt">Log in</p>
+            <p className="loginTxt">{content.loginTitle}</p>
             <form className="loginForm" onSubmit={logIn}>
                 <Input
                     name="mail"
@@ -94,7 +93,7 @@ const LoginForm = () => {
                     name="psw"
                     account={account.psw}
                     accountChange={accountChange}
-                    placeholder="Contraseña"
+                    placeholder={content.pswPlaceholder}
                     type="password"
                 >
                     <span>
@@ -103,11 +102,12 @@ const LoginForm = () => {
                 </Input>
                 <div className="loginError">{pswError}</div>
                 <div className="loginBtnWrapper space">
-                    <SubmitButton loading={loading} txt="Log in" />
+                    <SubmitButton loading={loading} txt={content.submitBtn} />
                 </div>
                 <div className="space recover">
                     <span>
-                        Recuperar <a href="mailto:support@gmail.com">usuario y contraseña</a>
+                        {content.recoveryTxt}{" "}
+                        <a href="mailto:support@gmail.com">{content.recoveryA}</a>
                     </span>
                 </div>
             </form>
