@@ -33,7 +33,7 @@
             align-items: flex-end;
             flex-wrap: wrap;
             @include fade(0.8s, 0s);
-            .txt {
+            .txtWrap {
                 font-size: $mobile-font;
             }
 
@@ -64,7 +64,7 @@
                 min-width: 40%;
                 height: 30%;
                 min-height: 30%;
-                .txt {
+                .txtWrap {
                     font-size: $desktop-font;
                 }
                 .btnWrap .btn {

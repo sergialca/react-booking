@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import RegisterForm from "../../components/registerForm/registerForm";
 import Alert from "../../components/alert/alert";
 import TransparentNav from "../../components/transparentNav/transparentNav";
-import FloatLang from "../../components/floatLang/floatLang";
+import LangDropdown from "../../components/langDropdown/langDropdown";
 import "./register.scss";
 
 const Register = () => {
@@ -15,7 +15,7 @@ const Register = () => {
     return (
         <div>
             <TransparentNav>
-                <FloatLang />
+                <LangDropdown />
             </TransparentNav>
             <div className="register">
                 <div className="formContainer fade">

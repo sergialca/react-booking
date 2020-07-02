@@ -19,7 +19,7 @@ function App() {
             <UserProvider>
                 <Switch>
                     <Route path="/login" component={Login} />
-                    <Route path="/:lang/signup" component={Register} />
+                    <Route path="/signup" component={Register} />
                     <Redirect from="/" to={"/login"} />
                 </Switch>
             </UserProvider>
