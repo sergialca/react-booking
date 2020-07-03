@@ -6,7 +6,8 @@ import Input from "../input/input";
 import Parse from "parse";
 import "./registerForm.scss";
 
-const RegisterForm = ({ showAlert }) => {
+const RegisterForm = ({ showAlert, content }) => {
+    console.log("RegisterForm -> content", content);
     const [account, setAccount] = useState({ mail: "", psw: "", name: "", rePsw: "" });
     const [error, setError] = useState({ mail: "", psw: "", rePsw: "", name: "" });
     const [loading, setLoading] = useState(false);
@@ -25,10 +26,10 @@ const RegisterForm = ({ showAlert }) => {
                 account.mail
             )
         ) {
-            setError((error) => ({ ...error, mail: "Mail no válido" }));
+            setError((error) => ({ ...error, mail: content.mailError }));
             return false;
         } else if (!account.user) {
-            setError((error) => ({ ...error, mail: "Mail requerido" }));
+            setError((error) => ({ ...error, mail: content.mailRequired }));
             return false;
         } else {
             setError((error) => ({ ...error, mail: "" }));
@@ -40,13 +41,13 @@ const RegisterForm = ({ showAlert }) => {
         if (account.psw && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(account.psw)) {
             setError((error) => ({
                 ...error,
-                psw: "La contraseña debe contener mínimo 8 carácteres",
+                psw: content.pswRule,
             }));
             return false;
         } else if (!account.psw) {
             setError((error) => ({
                 ...error,
-                psw: "Contraseña requerida",
+                psw: content.pswRequired,
             }));
             return false;
         } else {
@@ -60,10 +61,10 @@ const RegisterForm = ({ showAlert }) => {
 
     const validRePsw = () => {
         if (account.psw !== account.rePsw) {
-            setError((error) => ({ ...error, rePsw: "Las contraseñas no coinciden" }));
+            setError((error) => ({ ...error, rePsw: content.rePswError }));
             return false;
         } else if (!account.rePsw) {
-            setError((error) => ({ ...error, rePsw: "Campo requerido" }));
+            setError((error) => ({ ...error, rePsw: content.rePswRequired }));
             return false;
         } else {
             setError((error) => ({ ...error, rePsw: "" }));
@@ -73,7 +74,7 @@ const RegisterForm = ({ showAlert }) => {
 
     const validName = () => {
         if (!account.name) {
-            setError((error) => ({ ...error, name: "Nombre requerido" }));
+            setError((error) => ({ ...error, name: content.nameRequired }));
             return false;
         } else {
             setError((error) => ({ ...error, name: "" }));
@@ -95,13 +96,13 @@ const RegisterForm = ({ showAlert }) => {
 
     return (
         <div className="formWrapper">
-            <p className="signinTxt">Sign up</p>
+            <p className="signinTxt">{content.signupTitle}</p>
             <form className="signinForm" onSubmit={signIn}>
                 <Input
                     name="name"
                     account={account.name}
                     accountChange={accountChange}
-                    placeholder="Nombre completo"
+                    placeholder={content.namePlaceholder}
                     type=""
                 >
                     <span className="svg">
@@ -132,7 +133,7 @@ const RegisterForm = ({ showAlert }) => {
                             type="password"
                             value={account.psw}
                             onChange={accountChange}
-                            placeholder="Contraseña"
+                            placeholder={content.pswPlaceholder}
                         />
                     </div>
                     <MdInfo onClick={() => showAlert()} className="info" />
@@ -142,7 +143,7 @@ const RegisterForm = ({ showAlert }) => {
                     name="rePsw"
                     account={account.rePsw}
                     accountChange={accountChange}
-                    placeholder="Repetir contraseña"
+                    placeholder={content.rePswPlaceholder}
                     type="password"
                 >
                     <span>
@@ -151,7 +152,7 @@ const RegisterForm = ({ showAlert }) => {
                 </Input>
                 <div className="signinError">{error.rePsw}</div>
                 <div className="signinBtnWrapper">
-                    <SubmitButton loading={loading} txt="Sign up" />
+                    <SubmitButton loading={loading} txt={content.submitBtn} />
                 </div>
             </form>
         </div>

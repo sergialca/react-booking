@@ -10,7 +10,7 @@ import "./login.scss";
 
 const Login = () => {
     const { lang } = useContext(LangContext);
-    const [content, setContent] = useState("hola");
+    const [content, setContent] = useState("login");
 
     useEffect(() => {
         if (lang === "ca") setContent(() => loginCa);

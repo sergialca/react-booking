@@ -139,6 +139,7 @@ $desktop-font: 13.3333px;
 }
 @mixin primaryBtnFocus() {
     outline: none;
+    background-color: $primary-color;
 }
 @mixin primaryBtnActive() {
     background-color: $active-color;

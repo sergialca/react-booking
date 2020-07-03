@@ -1,0 +1,18 @@
+{
+    "mailPlaceholder": "Mail",
+    "mailError": "Mail no vàlid",
+    "mailRequired": "Mail obligatori",
+    "nameError": "Nom no vàlid",
+    "namePlaceholder": "Nom complet",
+    "nameRquired": "Nom obligatori",
+    "pswPlaceholder": "Contrasenya",
+    "pswRequired": "Contrasenya obligatoria",
+    "rePswPlaceholder": "Repetir contrasenya",
+    "rePswError": "Les contrasenyes no coincidixen",
+    "pswRule": "La contrasenya ha de contenir mínim 8 caràcters, una majúscula, una minúscula i un número.",
+    "accept": "Acceptar",
+    "loginTitle": "Log in",
+    "signupTitle": "Crear compte",
+    "signup": "Crear compte",
+    "submitBtn": "Crear"
+}

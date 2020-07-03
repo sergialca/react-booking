@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import RegisterForm from "../../components/registerForm/registerForm";
 import Alert from "../../components/alert/alert";
 import TransparentNav from "../../components/transparentNav/transparentNav";
 import LangDropdown from "../../components/langDropdown/langDropdown";
+import { LangContext } from "../../context/lang";
+import registerCa from "../../json/registerCa.json";
+import registerEs from "../../json/registerEs.json";
 import "./register.scss";
 
 const Register = () => {
+    const { lang } = useContext(LangContext);
     const [display, setDisplay] = useState(false);
+    const [content, setContent] = useState("singup");
+
+    useEffect(() => {
+        if (lang === "ca") setContent(() => registerCa);
+        else if (lang === "es") setContent(() => registerEs);
+    }, [lang]);
 
     const changeDisplay = () => {
         setDisplay(!display);
@@ -19,13 +29,11 @@ const Register = () => {
             </TransparentNav>
             <div className="register">
                 <div className="formContainer fade">
-                    <RegisterForm showAlert={changeDisplay} />
+                    <RegisterForm content={content} showAlert={changeDisplay} />
                 </div>
                 <Alert
-                    txt={
-                        "La contraseña debe contener 8 carácteres mínimo, una mayúscula, una minúscula y un número."
-                    }
-                    txtBtn={"Aceptar"}
+                    txt={content.pswRule}
+                    txtBtn={content.accept}
                     display={display}
                     aceptar={changeDisplay}
                 />
