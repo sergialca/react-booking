@@ -44,22 +44,6 @@ $info-width: 30px;
     .center {
         margin: 0 auto;
     }
-    .signinError {
-        width: 200px;
-        margin: 0 auto;
-        color: $error-color;
-        font-size: 12px;
-    }
-    .signinError:after {
-        color: #fff;
-        content: "-";
-    }
-    .signinValid {
-        width: 200px;
-        margin: 0 auto;
-        color: #fff;
-        font-size: 12px;
-    }
     .space {
         margin-top: 10px;
     }

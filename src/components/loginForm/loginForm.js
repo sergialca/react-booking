@@ -3,18 +3,17 @@ import { MdMail } from "react-icons/md";
 import { BsLockFill } from "react-icons/bs";
 import SubmitButton from "../submitButton/submitButton";
 import Input from "../input/input";
+import FormError from "../formError/formError";
 import Parse from "parse";
 import "./loginForm.scss";
 
 const LoginForm = ({ content }) => {
     const [account, setAccount] = useState({ mail: "", psw: "" });
-    const [mailError, setMailError] = useState("");
-    const [pswError, setPswError] = useState("");
+    const [error, setError] = useState({ mail: "", psw: "", submit: "" });
     const [loading, setLoading] = useState(false);
 
     const accountChange = (e) => {
-        setMailError("");
-        setPswError("");
+        setError((error) => ({ ...error, mail: "", psw: "" }));
         setAccount({
             ...account,
             [e.target.name]: e.target.value,
@@ -28,26 +27,26 @@ const LoginForm = ({ content }) => {
                 account.mail
             )
         ) {
-            setMailError(content.mailError);
+            setError((error) => ({ ...error, mail: content.mailError }));
             return false;
         } else if (!account.mail) {
-            setMailError(content.mailRequired);
+            setError((error) => ({ ...error, mail: content.mailRequired }));
             return false;
         } else {
-            setMailError("");
+            setError((error) => ({ ...error, mail: "" }));
             return true;
         }
     };
 
     const validPsw = () => {
         if (account.psw && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(account.psw)) {
-            setPswError(content.pswRule);
+            setError((error) => ({ ...error, psw: content.pswRule }));
             return false;
         } else if (!account.psw) {
-            setPswError(content.pswRequired);
+            setError((error) => ({ ...error, psw: content.pswRequired }));
             return false;
         } else {
-            setPswError("");
+            setError((error) => ({ ...error, psw: "" }));
             return true;
         }
     };
@@ -55,6 +54,7 @@ const LoginForm = ({ content }) => {
     const logIn = (e) => {
         e.preventDefault();
         setLoading(true);
+        setError((error) => ({ ...error, submit: "" }));
         const mail = validMail();
         const psw = validPsw();
         if (mail && psw) {
@@ -63,9 +63,9 @@ const LoginForm = ({ content }) => {
                     console.log("User LOGEDIN", JSON.stringify(user));
                 })
                 .catch((error) => {
-                    if (typeof document !== "undefined")
-                        document.write(`Error while logging in user: ${JSON.stringify(error)}`);
-                    console.error("Error while logging in user", error);
+                    error.code === 205
+                        ? setError((error) => ({ ...error, submit: content.submitErrorVerify }))
+                        : setError((error) => ({ ...error, submit: content.submitError }));
                 })
                 .finally(() => {
                     setLoading(false);
@@ -88,7 +88,7 @@ const LoginForm = ({ content }) => {
                         <MdMail />
                     </span>
                 </Input>
-                <div className="loginError">{mailError}</div>
+                <FormError txt={error.mail} />
                 <Input
                     name="psw"
                     account={account.psw}
@@ -100,10 +100,11 @@ const LoginForm = ({ content }) => {
                         <BsLockFill />
                     </span>
                 </Input>
-                <div className="loginError">{pswError}</div>
+                <FormError txt={error.psw} />
                 <div className="loginBtnWrapper space">
                     <SubmitButton loading={loading} txt={content.submitBtn} />
                 </div>
+                <FormError txt={error.submit} />
                 <div className="space recover">
                     <span>
                         {content.recoveryTxt}{" "}

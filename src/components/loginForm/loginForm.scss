@@ -11,22 +11,6 @@
     .center {
         margin: 0 auto;
     }
-    .loginError {
-        width: 200px;
-        margin: 0 auto;
-        color: $error-color;
-        font-size: 12px;
-    }
-    .loginError:after {
-        color: #fff;
-        content: "-";
-    }
-    .loginValid {
-        width: 200px;
-        margin: 0 auto;
-        color: #fff;
-        font-size: 12px;
-    }
     .space {
         margin-top: 10px;
     }

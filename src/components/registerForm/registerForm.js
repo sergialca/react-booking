@@ -3,13 +3,13 @@ import { MdMail, MdInfo } from "react-icons/md";
 import { BsLockFill, BsPersonFill } from "react-icons/bs";
 import SubmitButton from "../submitButton/submitButton";
 import Input from "../input/input";
+import FormError from "../formError/formError";
 import Parse from "parse";
 import "./registerForm.scss";
 
 const RegisterForm = ({ showAlert, content }) => {
-    console.log("RegisterForm -> content", content);
     const [account, setAccount] = useState({ mail: "", psw: "", name: "", rePsw: "" });
-    const [error, setError] = useState({ mail: "", psw: "", rePsw: "", name: "" });
+    const [error, setError] = useState({ mail: "", psw: "", rePsw: "", name: "", submit: "" });
     const [loading, setLoading] = useState(false);
 
     const accountChange = (e) => {
@@ -28,7 +28,7 @@ const RegisterForm = ({ showAlert, content }) => {
         ) {
             setError((error) => ({ ...error, mail: content.mailError }));
             return false;
-        } else if (!account.user) {
+        } else if (!account.mail) {
             setError((error) => ({ ...error, mail: content.mailRequired }));
             return false;
         } else {
@@ -82,6 +82,38 @@ const RegisterForm = ({ showAlert, content }) => {
         }
     };
 
+    const mailVerification = () => {
+        const https = require("https");
+        const params = { email: account.mail };
+        const options = {
+            hostname: "https://parseapi.back4app.com",
+            path: "/verificationEmailRequest",
+            method: "POST",
+            headers: {
+                "X-Parse-Application-Id": "kn0fKAr5wiPrx2FEjeIlejuE9s8AjEHaF2vY9zj9",
+                "X-Parse-REST-API-Key": "od4o0RAtgQzAICZY1LdEiVrItZN2trnrtcQX4hve",
+                "Content-Type": "application/json",
+            },
+        };
+
+        const req = https.request(options, (res) => {
+            res.setEncoding("utf8");
+            res.on("data", (chunk) => {
+                console.log(`BODY: ${chunk}`);
+            });
+            res.on("end", () => {
+                console.log("No more data in response.");
+            });
+        });
+
+        req.on("error", (e) => {
+            console.error(`Problem with request: ${e.message}`);
+        });
+
+        req.write(params);
+        req.end();
+    };
+
     const signIn = (e) => {
         e.preventDefault();
         setLoading(true);
@@ -90,7 +122,20 @@ const RegisterForm = ({ showAlert, content }) => {
         const psw = validPsw();
         const rePsw = validRePsw();
         if (mail && psw && rePsw && name) {
-            console.log("buen registro");
+            const user = new Parse.User();
+            user.set("username", account.name);
+            user.set("email", account.mail);
+            user.set("password", account.psw);
+
+            user.signUp()
+                .then((user) => {
+                    console.log("User signed up", user);
+                    mailVerification();
+                })
+                .catch((error) => {
+                    console.error("Error while signing up user", error);
+                })
+                .finally(() => setLoading(false));
         } else setLoading(false);
     };
 
@@ -109,7 +154,7 @@ const RegisterForm = ({ showAlert, content }) => {
                         <BsPersonFill />
                     </span>
                 </Input>
-                <div className="signinError">{error.name}</div>
+                <FormError txt={error.name} />
                 <Input
                     name="mail"
                     account={account.mail}
@@ -121,7 +166,7 @@ const RegisterForm = ({ showAlert, content }) => {
                         <MdMail />
                     </span>
                 </Input>
-                <div className="signinError">{error.mail}</div>
+                <FormError txt={error.mail} />
                 <div className="inputInfoContainer space">
                     <div className="inputInfoWrapper">
                         <span>
@@ -138,7 +183,7 @@ const RegisterForm = ({ showAlert, content }) => {
                     </div>
                     <MdInfo onClick={() => showAlert()} className="info" />
                 </div>
-                <div className="signinError">{error.psw}</div>
+                <FormError txt={error.psw} />
                 <Input
                     name="rePsw"
                     account={account.rePsw}
@@ -150,10 +195,11 @@ const RegisterForm = ({ showAlert, content }) => {
                         <BsLockFill />
                     </span>
                 </Input>
-                <div className="signinError">{error.rePsw}</div>
+                <FormError txt={error.rePsw} />
                 <div className="signinBtnWrapper">
                     <SubmitButton loading={loading} txt={content.submitBtn} />
                 </div>
+                <FormError txt={error.submit} />
             </form>
         </div>
     );

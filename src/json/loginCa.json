@@ -6,6 +6,8 @@
     "loginTitle": "Entrar",
     "signup": "Crear un compte",
     "submitBtn": "Entrar",
+    "submitError": "Error al entrar",
+    "submitErrorVerify": "Mail no verificat",
     "recoveryTxt": "Recuperar",
     "recoveryA": "usuari i contrasenya",
     "mailPlaceholder": "Mail",
