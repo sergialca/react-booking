@@ -1,13 +1,2 @@
-@import "~bootstrap/scss/bootstrap";
-
-.navbar-dark .navbar-nav a.nav-link {
-    color: rgba(255, 255, 255, 0.5);
-    text-align: center;
-}
-
 @media (min-width: 768px) {
-    .navbar-dark .navbar-nav a.nav-link {
-        color: rgba(255, 255, 255, 0.5);
-        text-align: left;
-    }
 }
