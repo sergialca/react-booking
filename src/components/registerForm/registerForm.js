@@ -109,7 +109,6 @@ const RegisterForm = ({ showAlert, content }) => {
         req.on("error", (e) => {
             console.error(`Problem with request: ${e.message}`);
         });
-
         req.write(params);
         req.end();
     };
@@ -117,6 +116,7 @@ const RegisterForm = ({ showAlert, content }) => {
     const signIn = (e) => {
         e.preventDefault();
         setLoading(true);
+        setError((error) => ({ ...error, submit: "" }));
         const mail = validMail();
         const name = validName();
         const psw = validPsw();
@@ -126,14 +126,15 @@ const RegisterForm = ({ showAlert, content }) => {
             user.set("username", account.name);
             user.set("email", account.mail);
             user.set("password", account.psw);
-
+            user.set("name", account.name);
             user.signUp()
                 .then((user) => {
                     console.log("User signed up", user);
+                    setError((error) => ({ ...error, submit: content.submitOk }));
                     mailVerification();
                 })
                 .catch((error) => {
-                    console.error("Error while signing up user", error);
+                    setError((error) => ({ ...error, submit: content.submitError }));
                 })
                 .finally(() => setLoading(false));
         } else setLoading(false);

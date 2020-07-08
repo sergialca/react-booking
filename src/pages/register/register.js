@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import RegisterForm from "../../components/registerForm/registerForm";
 import Alert from "../../components/alert/alert";
 import TransparentNav from "../../components/transparentNav/transparentNav";
@@ -8,7 +9,7 @@ import registerCa from "../../json/registerCa.json";
 import registerEs from "../../json/registerEs.json";
 import "./register.scss";
 
-const Register = () => {
+const Register = ({ history }) => {
     const { lang } = useContext(LangContext);
     const [display, setDisplay] = useState(false);
     const [content, setContent] = useState("singup");
@@ -22,6 +23,10 @@ const Register = () => {
         setDisplay(!display);
     };
 
+    const changeRoute = (route) => {
+        history.push(`/${route}`);
+    };
+
     return (
         <div>
             <TransparentNav>
@@ -29,7 +34,14 @@ const Register = () => {
             </TransparentNav>
             <div className="register">
                 <div className="formContainer fade">
-                    <RegisterForm content={content} showAlert={changeDisplay} />
+                    <RegisterForm
+                        history={changeRoute}
+                        content={content}
+                        showAlert={changeDisplay}
+                    />
+                    <div className="linkWrap">
+                        <Link to={`/login`}>{content.back}</Link>
+                    </div>
                 </div>
                 <Alert
                     txt={content.pswRule}

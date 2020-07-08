@@ -4,7 +4,7 @@
     "mailRequired": "Mail requerido",
     "nameError": "Nombre no válido",
     "namePlaceholder": "Nombre completo",
-    "nameRquired": "Nombre requerido",
+    "nameRequired": "Nombre requerido",
     "pswPlaceholder": "Contraseña",
     "pswError": "La contraseña debe contener mínimo 8 carácteres, una mayúscula, una minúscula y un número",
     "pswRequired": "Contraseña requerida",
@@ -16,5 +16,8 @@
     "loginTitle": "Log in",
     "signupTitle": "Regístrate",
     "signup": "Crear cuenta",
-    "submitBtn": "Registrarse"
+    "submitBtn": "Registrarse",
+    "submitError": "Error al registrarse",
+    "submitOk": "Enviando mail de confirmación",
+    "back": "Volver"
 }

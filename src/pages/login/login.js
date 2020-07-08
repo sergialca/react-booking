@@ -8,7 +8,7 @@ import loginEs from "../../json/loginEs.json";
 import loginCa from "../../json/loginCa.json";
 import "./login.scss";
 
-const Login = () => {
+const Login = ({ history }) => {
     const { lang } = useContext(LangContext);
     const [content, setContent] = useState("login");
 
@@ -17,6 +17,10 @@ const Login = () => {
         else if (lang === "es") setContent(() => loginEs);
     }, [lang]);
 
+    const changeRoute = (route) => {
+        history.push(`/${route}`);
+    };
+
     return (
         <div>
             <TransparentNav>
@@ -24,7 +28,7 @@ const Login = () => {
             </TransparentNav>
             <div className="login">
                 <div className="formContainer fade">
-                    <LoginForm content={content} />
+                    <LoginForm history={changeRoute} content={content} />
                     <div className="linkWrap">
                         <Link to={`/signup`}>{content.signup}</Link>
                     </div>

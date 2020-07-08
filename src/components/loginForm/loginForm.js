@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { MdMail } from "react-icons/md";
 import { BsLockFill } from "react-icons/bs";
 import SubmitButton from "../submitButton/submitButton";
 import Input from "../input/input";
 import FormError from "../formError/formError";
+import { UserContext } from "../../context/user";
 import Parse from "parse";
 import "./loginForm.scss";
 
-const LoginForm = ({ content }) => {
+const LoginForm = ({ content, history }) => {
     const [account, setAccount] = useState({ mail: "", psw: "" });
     const [error, setError] = useState({ mail: "", psw: "", submit: "" });
     const [loading, setLoading] = useState(false);
+    const { setUser } = useContext(UserContext);
 
     const accountChange = (e) => {
         setError((error) => ({ ...error, mail: "", psw: "" }));
@@ -61,8 +63,17 @@ const LoginForm = ({ content }) => {
             Parse.User.logIn(account.mail, account.psw)
                 .then((user) => {
                     console.log("User LOGEDIN", JSON.stringify(user));
+                    setUser({
+                        logged: true,
+                        name: user.name,
+                        email: user.mail,
+                        token: user.sessionToken,
+                        id: user.objectId,
+                    });
+                    history("dashboard");
                 })
                 .catch((error) => {
+                    console.log("logIn -> error", error);
                     error.code === 205
                         ? setError((error) => ({ ...error, submit: content.submitErrorVerify }))
                         : setError((error) => ({ ...error, submit: content.submitError }));
