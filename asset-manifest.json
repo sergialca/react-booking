@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/react-booking/static/css/main.e1b9df97.chunk.css",
-    "main.js": "/react-booking/static/js/main.cc5abb32.chunk.js",
-    "main.js.map": "/react-booking/static/js/main.cc5abb32.chunk.js.map",
+    "main.css": "/react-booking/static/css/main.37da6975.chunk.css",
+    "main.js": "/react-booking/static/js/main.b45c1692.chunk.js",
+    "main.js.map": "/react-booking/static/js/main.b45c1692.chunk.js.map",
     "runtime-main.js": "/react-booking/static/js/runtime-main.82cb330d.js",
     "runtime-main.js.map": "/react-booking/static/js/runtime-main.82cb330d.js.map",
-    "static/js/2.c5d13cda.chunk.js": "/react-booking/static/js/2.c5d13cda.chunk.js",
-    "static/js/2.c5d13cda.chunk.js.map": "/react-booking/static/js/2.c5d13cda.chunk.js.map",
+    "static/js/2.12277bf1.chunk.js": "/react-booking/static/js/2.12277bf1.chunk.js",
+    "static/js/2.12277bf1.chunk.js.map": "/react-booking/static/js/2.12277bf1.chunk.js.map",
     "index.html": "/react-booking/index.html",
-    "precache-manifest.f91ed2f93e4685920084899b893c017b.js": "/react-booking/precache-manifest.f91ed2f93e4685920084899b893c017b.js",
+    "precache-manifest.7d403b7cc94e98f76019316a08a9b324.js": "/react-booking/precache-manifest.7d403b7cc94e98f76019316a08a9b324.js",
     "service-worker.js": "/react-booking/service-worker.js",
-    "static/css/main.e1b9df97.chunk.css.map": "/react-booking/static/css/main.e1b9df97.chunk.css.map",
-    "static/js/2.c5d13cda.chunk.js.LICENSE.txt": "/react-booking/static/js/2.c5d13cda.chunk.js.LICENSE.txt"
+    "static/css/main.37da6975.chunk.css.map": "/react-booking/static/css/main.37da6975.chunk.css.map",
+    "static/js/2.12277bf1.chunk.js.LICENSE.txt": "/react-booking/static/js/2.12277bf1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.82cb330d.js",
-    "static/js/2.c5d13cda.chunk.js",
-    "static/css/main.e1b9df97.chunk.css",
-    "static/js/main.cc5abb32.chunk.js"
+    "static/js/2.12277bf1.chunk.js",
+    "static/css/main.37da6975.chunk.css",
+    "static/js/main.b45c1692.chunk.js"
   ]
 }
