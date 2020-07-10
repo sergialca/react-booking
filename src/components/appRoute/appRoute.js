@@ -11,7 +11,7 @@ const AppRoute = ({ component: Component, layout: Layout, render, ...rest }) => 
             render={(props) => {
                 if (!user.logged) return <Redirect to="/login" />;
                 return Component ? (
-                    <Layout>
+                    <Layout key="l">
                         <Component {...props} />
                     </Layout>
                 ) : (

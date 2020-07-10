@@ -20,16 +20,18 @@ const Navbar = ({ content }) => {
                 setSelected(() => ({ first: true, second: false }));
                 //FALTA PULIR
                 console.log("content en navbar", content);
-                setMenu(() => "hola");
+                setMenu(() => "Reservar");
                 //
                 break;
             case "2":
                 setSelected(() => ({ first: false, second: true }));
+                setMenu(() => "Mis Reservas");
                 break;
             default:
                 setSelected(() => ({ first: true, second: false }));
                 break;
         }
+        setExpanded(() => false);
     };
 
     return (

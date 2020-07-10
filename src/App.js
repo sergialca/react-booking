@@ -10,10 +10,18 @@ import AppRoute from "./components/appRoute/appRoute";
 import { UserContext } from "./context/user";
 import { LangContext } from "./context/lang";
 import { MenuContext } from "./context/menu";
+import { LogicContext } from "./context/logic";
 
 function App() {
     const [lang, setLang] = useState("es");
     const [menu, setMenu] = useState("Booking");
+    const [logic, setLogic] = useState({
+        room: "roomName",
+        roomId: "roomId",
+        day: new Date(),
+        time: "0h-2h",
+        timeId: "t0",
+    });
     const appId = "kn0fKAr5wiPrx2FEjeIlejuE9s8AjEHaF2vY9zj9";
 
     const getUserLoged = () => {
@@ -43,13 +51,15 @@ function App() {
         <LangContext.Provider value={{ lang, setLang }}>
             <UserContext.Provider value={{ user, setUser }}>
                 <MenuContext.Provider value={{ menu, setMenu }}>
-                    <Switch>
-                        <Route path="/login" component={Login} />
-                        <Route path="/signup" component={Register} />
-                        <AppRoute path="/dashboard" component={Dashboard} layout={Layout} />
-                        <AppRoute path="/myspace" component={Myspace} layout={Layout} />
-                        <Redirect from="/" to={"/dashboard"} />
-                    </Switch>
+                    <LogicContext.Provider value={{ logic, setLogic }}>
+                        <Switch>
+                            <Route path="/login" component={Login} />
+                            <Route path="/signup" component={Register} />
+                            <AppRoute path="/dashboard" component={Dashboard} layout={Layout} />
+                            <AppRoute path="/myspace" component={Myspace} layout={Layout} />
+                            <Redirect from="/" to={"/dashboard"} />
+                        </Switch>
+                    </LogicContext.Provider>
                 </MenuContext.Provider>
             </UserContext.Provider>
         </LangContext.Provider>
