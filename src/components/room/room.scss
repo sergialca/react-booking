@@ -1,0 +1,28 @@
+@import "../../styles/font.scss";
+
+.room {
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.75);
+    width: 90%;
+    margin: 0 0 20px 0;
+    font-size: $mobile-font;
+    .title {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+    .time {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+}
+
+@media (min-width: 768px) {
+    .room {
+        margin-left: 20px;
+        margin: 0 0 20px 20px;
+        width: 30%;
+        font-size: $desktop-font;
+        max-width: 350px;
+    }
+}

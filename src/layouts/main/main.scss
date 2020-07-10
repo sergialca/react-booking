@@ -1,0 +1,16 @@
+@import "../../styles/font.scss";
+.layout {
+    .header {
+        padding: 8px 8px 8px 24px;
+        @include title();
+        border-bottom: 1px solid $primary-color;
+    }
+
+    @media (min-width: 768px) {
+        .header {
+            padding: 12px 12px 12px 24px;
+            @include title();
+            border-bottom: 1px solid $primary-color;
+        }
+    }
+}

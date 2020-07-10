@@ -1,0 +1,24 @@
+@import "../../styles/font.scss";
+
+.timebadge {
+    padding: 5px;
+    border-radius: 10px;
+    background-color: $primary-color;
+    width: auto;
+    cursor: pointer;
+    margin: 0 5px 5px 0;
+    font-size: $mobile-font;
+}
+
+.timebadge:hover {
+    background-color: $hover-color;
+}
+.timebadge:active {
+    background-color: $active-color;
+}
+
+@media (min-width: 768px) {
+    .timebadge {
+        font-size: $desktop-font;
+    }
+}

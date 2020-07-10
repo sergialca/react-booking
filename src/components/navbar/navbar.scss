@@ -1,3 +1,5 @@
+@import "../../styles/font.scss";
+
 .navbar {
     background-color: #ccc;
     overflow: hidden;
@@ -13,14 +15,8 @@
         font-size: 17px;
 
         &.active {
-            background-color: #000;
-            color: white;
+            color: $primary-color;
         }
-    }
-
-    .link.brand:hover {
-        background-color: #ddd;
-        color: black;
     }
 
     .icon {
@@ -58,8 +54,17 @@
             padding: 14px 16px;
             text-decoration: none;
             font-size: 17px;
-        }
 
+            &.selected {
+                color: $primary-color;
+            }
+        }
+        .link:hover {
+            color: $hover-color;
+        }
+        .lang {
+            padding: 10px 16px 0px 16px;
+        }
         &.responsive {
             flex-basis: 100%;
             flex-grow: 1;
@@ -69,6 +74,10 @@
             position: fixed;
             background-color: #ccc;
             z-index: 1;
+
+            .lang {
+                padding: 10px 16px 10px 16px;
+            }
         }
     }
 }
@@ -90,6 +99,9 @@
                 padding: 14px 16px;
                 text-decoration: none;
                 font-size: 17px;
+                display: inline-block;
+            }
+            .lang {
                 display: inline-block;
             }
             &.responsive {
