@@ -15,10 +15,19 @@ import { LogicContext } from "./context/logic";
 function App() {
     const [lang, setLang] = useState("es");
     const [menu, setMenu] = useState("Booking");
+
+    const formatToday = () => {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, "0");
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const yyyy = today.getFullYear();
+        return dd + "/" + mm + "/" + yyyy;
+    };
+
     const [logic, setLogic] = useState({
         room: "roomName",
         roomId: "roomId",
-        day: new Date(),
+        day: formatToday(),
         time: "0h-2h",
         timeId: "t0",
     });

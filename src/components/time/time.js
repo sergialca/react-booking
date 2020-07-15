@@ -1,10 +1,10 @@
-import React, { useState, useContext } from "react";
-import "./time.scss";
+import React, { useContext, useState, useEffect } from "react";
 import { LogicContext } from "../../context/logic";
+import "./time.scss";
 
-const Time = ({ time, timeId, room, roomId, display, setDisplay, timeClicked }) => {
-    const [clicked, setClicked] = useState(false);
-    const { setLogic } = useContext(LogicContext);
+const Time = ({ time, timeId, room, roomId, setDisplay }) => {
+    const { logic, setLogic } = useContext(LogicContext);
+    const [booked, setBooked] = useState(false);
 
     const formatToday = () => {
         const today = new Date();
@@ -20,20 +20,19 @@ const Time = ({ time, timeId, room, roomId, display, setDisplay, timeClicked }) 
             roomId,
             day: formatToday(),
             time,
-            timeId,
+            timeId: { id: timeId, booked: false },
         }));
-        setClicked(() => true);
         setDisplay(() => ({ timeAlert: true }));
     };
 
+    useEffect(() => {
+        if (logic.timeId.id === timeId && logic.timeId.booked) {
+            setBooked(() => true);
+        }
+    }, [logic.timeId.booked]);
+
     return (
-        <div
-            className={clicked ? (display ? "noTime" : "timebadge") : "timebadge"}
-            onClick={() => {
-                timeClicked(time, room, roomId);
-                onTimeClick();
-            }}
-        >
+        <div className={booked ? "noTime" : "timebadge"} onClick={() => onTimeClick()}>
             <span>{time}</span>
         </div>
     );

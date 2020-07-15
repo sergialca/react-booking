@@ -1,16 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
-import { LangContext } from "../../context/lang";
 import dashboardCa from "../../json/dashboardCa.json";
 import dashboardEs from "../../json/dashboardEs.json";
 import Room from "../../components/room/room";
 import TimeAlert from "../../components/alert/timeAlert";
+import { LangContext } from "../../context/lang";
+import { LogicContext } from "../../context/logic";
+import { UserContext } from "../../context/user";
+import { newBooking, getValUserLoged, getRooms, getBooking } from "../../api/api";
 import Parse from "parse";
 import "./dashboard.scss";
 
 const Dashboard = (props) => {
     const { lang } = useContext(LangContext);
+    const { logic } = useContext(LogicContext);
+    const { user } = useContext(UserContext);
     const [content, setContent] = useState("Reservas");
-    const [display, setDisplay] = useState({ timeAlert: false, okClicked: false });
+    const [display, setDisplay] = useState({ timeAlert: false });
     const [rooms, setRooms] = useState([
         {
             attributes: {
@@ -31,27 +36,56 @@ const Dashboard = (props) => {
         }
     }, [lang]);
 
+    const verifyUser = async () => {
+        const currentUser = await getValUserLoged(user.token);
+        return currentUser ? "" : props.history.push("/login");
+    };
+
+    const dbRooms = async () => {
+        const resRooms = await getRooms();
+        for (let i = 0; i < resRooms.length; i++) {
+            const bo = await getBooking(logic.day, resRooms[i].id);
+            if (bo.length > 0) {
+                const reNew = bo.map((t) => {
+                    return t.attributes.time;
+                });
+                reNew.map((tt) => {
+                    resRooms[i].attributes.times.map((et, pos) => {
+                        if (tt === et.timeInt) resRooms[i].attributes.times.splice(pos, 1);
+                        return tt;
+                    });
+                    return tt;
+                });
+            }
+            if (resRooms[i].attributes.times.length === 0) {
+                resRooms[i].attributes.times.push("No time available");
+            }
+            if (i === 0) setRooms(() => [resRooms[i]]);
+            else setRooms((prev) => [...prev, resRooms[i]]);
+        }
+        return;
+    };
+
     useEffect(() => {
-        const rooms = Parse.Object.extend("Rooms");
-        const query = new Parse.Query(rooms);
-        query.find().then((result) => {
-            setRooms(() => result);
-        });
+        if (lang === "ca") {
+            setContent(() => dashboardCa);
+        } else if (lang === "es") {
+            setContent(() => dashboardEs);
+        }
+        verifyUser();
+        dbRooms();
         return () => {
             setDisplay((dis) => ({ ...dis, timeAlert: false }));
         };
     }, []);
 
-    const aceptar = () => {
-        setDisplay((dis) => ({ ...dis, timeAlert: false, okClicked: true }));
+    const aceptar = async () => {
+        await newBooking(user.id, logic.roomId, logic.day, logic.time);
+        setDisplay((dis) => ({ ...dis, timeAlert: false }));
     };
 
     const cancelar = () => {
-        setDisplay((dis) => ({ ...dis, timeAlert: false, okClicked: false }));
-    };
-
-    const timeClicked = (time, room, roomId) => {
-        setDisplay((dis) => ({ ...dis, timeBadge: false }));
+        setDisplay((dis) => ({ ...dis, timeAlert: false }));
     };
 
     return (
@@ -63,9 +97,9 @@ const Dashboard = (props) => {
                         name={m.attributes.name}
                         time={m.attributes.times}
                         roomId={m.id}
-                        display={display.okClicked}
                         setDisplay={setDisplay}
-                        timeClicked={timeClicked}
+                        day={logic.day}
+                        noTimes={content.complete}
                     />
                 );
             })}

@@ -14,6 +14,10 @@
         display: flex;
         flex-wrap: wrap;
         padding: 10px;
+
+        .noTime {
+            color: #000;
+        }
     }
 }
 
