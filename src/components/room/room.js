@@ -3,8 +3,6 @@ import Time from "../time/time";
 import "./room.scss";
 
 const Room = ({ name, time, roomId, day, setDisplay, noTimes }) => {
-    console.log("Room -> noTime", noTimes);
-    console.log("Room -> time", typeof time);
     return (
         <div className="room">
             <div className="title">{name}</div>
@@ -14,9 +12,9 @@ const Room = ({ name, time, roomId, day, setDisplay, noTimes }) => {
                         noTimes
                     ) : (
                         <Time
-                            time={t.timeInt || t}
+                            time={t.timeInt}
                             key={t.id}
-                            timeId={t.id || t}
+                            timeId={t.id}
                             room={name}
                             roomId={roomId}
                             setDisplay={setDisplay}
