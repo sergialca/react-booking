@@ -1,6 +1,92 @@
+@import "../../styles/font";
 .dashboard {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 20px;
-    justify-content: center;
+    .filters {
+        background-color: #ccc;
+        padding: 10px;
+        background-color: #ccc;
+        padding: 10px;
+        display: flex;
+        /* justify-content: center; */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .labelInput {
+            display: flex;
+            flex-direction: column;
+
+            .SingleDatePicker {
+                width: 100%;
+                display: block;
+                .SingleDatePickerInput {
+                    background-color: transparent;
+                }
+                .SingleDatePickerInput__withBorder {
+                    text-align: center;
+                    border: 0px;
+
+                    .DateInput {
+                        background: transparent;
+                        .DateInput_input {
+                            border-radius: 250px;
+                            width: 120px;
+                            line-height: normal;
+                        }
+                        .DateInput_input:focus {
+                            border: 1px solid $primary-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .rooms {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+        .filters {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            .labelInput {
+                display: flex;
+                flex-direction: row;
+                .SingleDatePicker {
+                    display: inline-block;
+
+                    .SingleDatePickerInput {
+                        background-color: transparent;
+                    }
+                    .SingleDatePickerInput__withBorder {
+                        text-align: center;
+                        border: 0px;
+
+                        .DateInput {
+                            background: transparent;
+                            .DateInput_input {
+                                border-radius: 250px;
+                                width: 120px;
+                                line-height: normal;
+                            }
+                            .DateInput_input:focus {
+                                border: 1px solid $primary-color;
+                            }
+                        }
+                    }
+                }
+
+                & .label {
+                    margin-right: 20px;
+                    padding: 10px;
+                }
+                &.second {
+                    margin-left: 24px;
+                }
+            }
+        }
+    }
 }

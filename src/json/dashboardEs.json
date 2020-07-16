@@ -1,4 +1,7 @@
 {
     "title": "Reservas",
-    "complete": "No hay horas disponibles"
+    "complete": "No hay horas disponibles",
+    "day": "Día",
+    "room": "Sala",
+    "all": "Todas"
 }

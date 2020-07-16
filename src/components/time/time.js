@@ -1,24 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
 import { LogicContext } from "../../context/logic";
+import moment from "moment";
 import "./time.scss";
 
 const Time = ({ time, timeId, room, roomId, setDisplay }) => {
     const { logic, setLogic } = useContext(LogicContext);
     const [booked, setBooked] = useState(false);
 
-    const formatToday = () => {
-        const today = new Date();
-        const dd = String(today.getDate()).padStart(2, "0");
-        const mm = String(today.getMonth() + 1).padStart(2, "0");
-        const yyyy = today.getFullYear();
-        return dd + "/" + mm + "/" + yyyy;
-    };
-
     const onTimeClick = () => {
         setLogic(() => ({
             room,
             roomId,
-            day: formatToday(),
+            day: moment(),
+            dayFormatted: moment().format("L"),
             time,
             timeId: { id: timeId, booked: false },
         }));

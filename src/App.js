@@ -7,6 +7,7 @@ import Layout from "./layouts/main/main";
 import Dashboard from "./pages/dashboard/dashboard";
 import Myspace from "./pages/myspace/myspace";
 import AppRoute from "./components/appRoute/appRoute";
+import moment from "moment";
 import { UserContext } from "./context/user";
 import { LangContext } from "./context/lang";
 import { MenuContext } from "./context/menu";
@@ -16,20 +17,13 @@ function App() {
     const [lang, setLang] = useState("es");
     const [menu, setMenu] = useState("Booking");
 
-    const formatToday = () => {
-        const today = new Date();
-        const dd = String(today.getDate()).padStart(2, "0");
-        const mm = String(today.getMonth() + 1).padStart(2, "0");
-        const yyyy = today.getFullYear();
-        return dd + "/" + mm + "/" + yyyy;
-    };
-
     const [logic, setLogic] = useState({
         room: "roomName",
         roomId: "roomId",
-        day: formatToday(),
+        day: moment(),
+        dayFormatted: moment().format("L"),
         time: "0h-2h",
-        timeId: "t0",
+        timeId: { id: "t0", booked: 2 },
     });
     const appId = "kn0fKAr5wiPrx2FEjeIlejuE9s8AjEHaF2vY9zj9";
 
