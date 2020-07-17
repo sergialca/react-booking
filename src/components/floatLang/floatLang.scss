@@ -1,11 +1,7 @@
 @import "../../styles/font.scss";
 
-.bar {
-    background-color: linear-gradient(90deg, rgba(9, 9, 121, 1) 0%, rgba(0, 155, 248, 1) 100%);
-}
-
 .selectWrap {
-    position: absolute;
+    position: relative;
     display: flex;
     width: 70px;
     height: 30px;

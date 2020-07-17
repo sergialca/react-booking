@@ -19,7 +19,6 @@ const Navbar = ({ content }) => {
             case "1":
                 setSelected(() => ({ first: true, second: false }));
                 //FALTA PULIR
-                console.log("content en navbar", content);
                 setMenu(() => "Reservar");
                 //
                 break;
@@ -54,7 +53,7 @@ const Navbar = ({ content }) => {
                 >
                     {content.myBooking}
                 </Link>
-                <div className="lang">
+                <div className="langu">
                     <LangDropdown />
                 </div>
             </div>

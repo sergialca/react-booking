@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./floatLang.scss";
 import { LangContext } from "../../context/lang";
 
-const FloatLang = ({ fnSelect }) => {
-    const { setLang } = useContext(LangContext);
+const FloatLang = ({}) => {
+    const { lang, setLang } = useContext(LangContext);
 
     const select = (e) => {
         let val = e.target.value;
@@ -13,6 +13,10 @@ const FloatLang = ({ fnSelect }) => {
             setLang("es");
         }
     };
+    useEffect(() => {
+        lang === "ca" ? setLang("ca") : setLang("es");
+    });
+
     return (
         <div className="selectWrap">
             <select className="select" onChange={select}>
