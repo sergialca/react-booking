@@ -53,6 +53,7 @@ const Dashboard = (props) => {
 
     const verifyUser = async () => {
         const currentUser = await getValUserLoged(user.token);
+        console.log("verifyUser -> currentUser", currentUser);
         return currentUser ? "" : props.history.push("/login");
     };
 
@@ -107,7 +108,7 @@ const Dashboard = (props) => {
     };
 
     useEffect(() => {
-        verifyUser();
+        //verifyUser();
         dbRooms();
         return () => {
             setDisplay((dis) => ({ ...dis, timeAlert: false }));
