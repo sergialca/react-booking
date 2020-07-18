@@ -1,35 +1,35 @@
 import React, { useContext, useState, useEffect } from "react";
-import { LogicContext } from "../../context/logic";
+import { BookingContext } from "../../context/booking";
 import "./time.scss";
 
-const Time = ({ time, timeId, room, roomId, setDisplay, day, dayFormatted }) => {
-    const { logic, setLogic } = useContext(LogicContext);
+const Time = ({ time, timeId, room, roomId, setDisplay, dayFormatted }) => {
+    const { booking, setBooking } = useContext(BookingContext);
     const [localState, setLocalState] = useState({
-        day,
         dayFormatted,
         timeId,
+        time,
         booked: false,
     });
 
     const onTimeClick = () => {
-        setLogic((prev) => ({
-            ...prev,
+        setBooking(() => ({
+            dayFormatted,
             room,
             roomId,
             time,
-            timeId: { id: timeId, booked: false },
+            timeId,
+            booked: false,
         }));
         setDisplay(() => ({ timeAlert: true }));
     };
 
     useEffect(() => {
-        "canvi de logic booked";
-        if (logic.dayFormatted === localState.dayFormatted) {
-            if (logic.timeId.id === localState.timeId && logic.timeId.booked) {
+        if (booking.dayFormatted === localState.dayFormatted) {
+            if (booking.timeId === localState.timeId && booking.booked) {
                 setLocalState((prev) => ({ ...prev, booked: true }));
             }
         }
-    }, [logic]);
+    }, [booking.booked]);
 
     return (
         <div className={localState.booked ? "noTime" : "timebadge"} onClick={() => onTimeClick()}>

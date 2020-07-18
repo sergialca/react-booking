@@ -11,20 +11,31 @@ import moment from "moment";
 import { UserContext } from "./context/user";
 import { LangContext } from "./context/lang";
 import { MenuContext } from "./context/menu";
-import { LogicContext } from "./context/logic";
+import { FiltersContext } from "./context/filters";
+import { BookingContext } from "./context/booking";
 
 function App() {
     const [lang, setLang] = useState("es");
-    const [menu, setMenu] = useState("Booking");
-
-    const [logic, setLogic] = useState({
+    const [menu, setMenu] = useState("Reservar");
+    const [filters, setFilters] = useState({
         room: "roomName",
-        roomId: "roomId",
+        roomId: "all",
         day: moment(),
         dayFormatted: moment().format("L"),
         time: "0h-2h",
-        timeId: { id: "t0", booked: 2 },
+        timeId: "t0",
         isSunday: moment().format("dddd") === "Sunday" ? true : false,
+        select: false,
+        dayPicker: false,
+    });
+
+    const [booking, setBooking] = useState({
+        room: "roomName",
+        roomId: "all",
+        dayFormatted: moment().format("L"),
+        time: "0h-2h",
+        timeId: "t0",
+        booked: false,
     });
     const appId = "kn0fKAr5wiPrx2FEjeIlejuE9s8AjEHaF2vY9zj9";
 
@@ -55,15 +66,17 @@ function App() {
         <LangContext.Provider value={{ lang, setLang }}>
             <UserContext.Provider value={{ user, setUser }}>
                 <MenuContext.Provider value={{ menu, setMenu }}>
-                    <LogicContext.Provider value={{ logic, setLogic }}>
-                        <Switch>
-                            <Route path="/login" component={Login} />
-                            <Route path="/signup" component={Register} />
-                            <AppRoute path="/dashboard" component={Dashboard} layout={Layout} />
-                            <AppRoute path="/myspace" component={Myspace} layout={Layout} />
-                            <Redirect from="/" to={"/dashboard"} />
-                        </Switch>
-                    </LogicContext.Provider>
+                    <FiltersContext.Provider value={{ filters, setFilters }}>
+                        <BookingContext.Provider value={{ booking, setBooking }}>
+                            <Switch>
+                                <Route path="/login" component={Login} />
+                                <Route path="/signup" component={Register} />
+                                <AppRoute path="/dashboard" component={Dashboard} layout={Layout} />
+                                <AppRoute path="/myspace" component={Myspace} layout={Layout} />
+                                <Redirect from="/" to={"/dashboard"} />
+                            </Switch>
+                        </BookingContext.Provider>
+                    </FiltersContext.Provider>
                 </MenuContext.Provider>
             </UserContext.Provider>
         </LangContext.Provider>

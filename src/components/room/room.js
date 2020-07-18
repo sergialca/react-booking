@@ -2,7 +2,7 @@ import React from "react";
 import Time from "../time/time";
 import "./room.scss";
 
-const Room = ({ name, time, roomId, day, dayFormatted, setDisplay, noTimes }) => {
+const Room = ({ name, time, roomId, dayFormatted, setDisplay, noTimes }) => {
     return (
         <div className="room">
             <div className="title">{name}</div>
@@ -18,7 +18,6 @@ const Room = ({ name, time, roomId, day, dayFormatted, setDisplay, noTimes }) =>
                             room={name}
                             roomId={roomId}
                             setDisplay={setDisplay}
-                            day={day}
                             dayFormatted={dayFormatted}
                         />
                     );

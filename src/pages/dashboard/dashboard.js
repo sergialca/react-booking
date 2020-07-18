@@ -9,15 +9,17 @@ import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import { SingleDatePicker } from "react-dates";
 import { LangContext } from "../../context/lang";
-import { LogicContext } from "../../context/logic";
+import { FiltersContext } from "../../context/filters";
+import { BookingContext } from "../../context/booking";
 import { UserContext } from "../../context/user";
-import { newBooking, getValUserLoged, getRooms, getBooking } from "../../api/api";
+import { newBooking, getValUserLoged, getRooms, getBooking, getRoom } from "../../api/api";
 import moment from "moment";
 import "./dashboard.scss";
 
 const Dashboard = (props) => {
     const { lang } = useContext(LangContext);
-    const { logic, setLogic } = useContext(LogicContext);
+    const { filters, setFilters } = useContext(FiltersContext);
+    const { booking, setBooking } = useContext(BookingContext);
     const { user } = useContext(UserContext);
     const [display, setDisplay] = useState({ timeAlert: false, loading: false });
     const [datePicker, setDayPicker] = useState({ focus: false });
@@ -55,7 +57,7 @@ const Dashboard = (props) => {
         }));
         const resRooms = await getRooms();
         for (let i = 0; i < resRooms.length; i++) {
-            const bo = await getBooking(logic.dayFormatted, resRooms[i].id);
+            const bo = await getBooking(filters.dayFormatted, resRooms[i].id);
             if (bo.length > 0) {
                 const reNew = bo.map((t) => {
                     return t.attributes.time;
@@ -78,6 +80,38 @@ const Dashboard = (props) => {
             ...prev,
             loading: false,
         }));
+        setFilters((prev) => ({ ...prev, select: false, dayPicker: false }));
+        return;
+    };
+
+    const dbRoom = async () => {
+        setDisplay((prev) => ({
+            ...prev,
+            loading: true,
+        }));
+        const resRooms = await getRoom(filters.room);
+        const bo = await getBooking(filters.dayFormatted, resRooms[0].id);
+        if (bo.length > 0) {
+            const reNew = bo.map((t) => {
+                return t.attributes.time;
+            });
+            reNew.map((tt) => {
+                resRooms[0].attributes.times.map((et, pos) => {
+                    if (tt === et.timeInt) resRooms[0].attributes.times.splice(pos, 1);
+                    return tt;
+                });
+                return tt;
+            });
+        }
+        if (resRooms[0].attributes.times.length === 0) {
+            resRooms[0].attributes.times.push("No time available");
+        }
+        setRooms(() => [resRooms[0]]);
+        setDisplay((prev) => ({
+            ...prev,
+            loading: false,
+        }));
+        setFilters((prev) => ({ ...prev, select: false, dayPicker: false }));
         return;
     };
 
@@ -112,11 +146,21 @@ const Dashboard = (props) => {
         };
     }, []);
 
+    useEffect(() => {
+        if (filters.select || filters.dayPicker) {
+            if (filters.roomId === "all") {
+                dbRooms();
+            } else {
+                dbRoom();
+            }
+        }
+    }, [filters.select, filters.dayPicker]);
+
     const aceptar = async () => {
-        await newBooking(user.id, logic.roomId, logic.dayFormatted, logic.time);
-        setLogic((prev) => ({
+        await newBooking(user.id, booking.roomId, booking.dayFormatted, booking.time);
+        setBooking((prev) => ({
             ...prev,
-            timeId: { id: prev.timeId.id, booked: true },
+            booked: true,
         }));
         setDisplay((dis) => ({ ...dis, timeAlert: false }));
     };
@@ -141,15 +185,16 @@ const Dashboard = (props) => {
                 <div className="labelInput">
                     <span className="label">{content.day}:</span>
                     <SingleDatePicker
-                        date={logic.day}
-                        onDateChange={(date) => {
-                            setLogic((prev) => ({
+                        date={filters.day}
+                        onDateChange={(date) =>
+                            setFilters((prev) => ({
                                 ...prev,
                                 day: date,
                                 dayFormatted: date.format("L"),
                                 isSunday: date.format("dddd") === "Sunday" ? true : false,
-                            }));
-                        }}
+                                dayPicker: true,
+                            }))
+                        }
                         focused={datePicker.focus} // PropTypes.bool
                         onFocusChange={({ focused }) => {
                             setDayPicker(() => ({ focus: focused }));
@@ -159,8 +204,7 @@ const Dashboard = (props) => {
                         readOnly={true}
                         firstDayOfWeek={1}
                         isOutsideRange={(day) =>
-                            day.isBefore(moment().subtract(1, "day")) ||
-                            day.isAfter(moment().add(7, "days"))
+                            day.isBefore(moment()) || day.isAfter(moment().add(7, "days"))
                         }
                         id="dayComp"
                     />
@@ -172,10 +216,12 @@ const Dashboard = (props) => {
                         options={selectable}
                         defaultValue={selectable[2]}
                         placeholder={content.all}
-                        onChange={(value) =>
-                            setLogic((prev) => ({
+                        onChange={(val) =>
+                            setFilters((prev) => ({
                                 ...prev,
-                                roomId: value,
+                                room: val.label,
+                                roomId: val.value,
+                                select: true,
                             }))
                         }
                     />
@@ -184,7 +230,7 @@ const Dashboard = (props) => {
             <div className="rooms">
                 {display.loading ? (
                     <ClipLoader color={"#0093fc"} size={50} />
-                ) : logic.isSunday ? (
+                ) : filters.isSunday ? (
                     content.all
                 ) : (
                     rooms.map((m) => {
@@ -195,8 +241,7 @@ const Dashboard = (props) => {
                                 time={m.attributes.times}
                                 roomId={m.id}
                                 setDisplay={setDisplay}
-                                day={logic.day}
-                                dayFormatted={logic.dayFormatted}
+                                dayFormatted={filters.dayFormatted}
                                 noTimes={content.complete}
                             />
                         );

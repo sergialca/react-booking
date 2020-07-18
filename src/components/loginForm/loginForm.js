@@ -62,7 +62,6 @@ const LoginForm = ({ content, history }) => {
         if (mail && psw) {
             Parse.User.logIn(account.mail, account.psw)
                 .then((user) => {
-                    console.log("User LOGEDIN", JSON.stringify(user));
                     setUser({
                         logged: true,
                         name: user.name,
@@ -73,7 +72,6 @@ const LoginForm = ({ content, history }) => {
                     history("dashboard");
                 })
                 .catch((error) => {
-                    console.log("logIn -> error", error);
                     error.code === 205
                         ? setError((error) => ({ ...error, submit: content.submitErrorVerify }))
                         : setError((error) => ({ ...error, submit: content.submitError }));
