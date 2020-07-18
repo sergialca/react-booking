@@ -24,7 +24,7 @@ const Navbar = ({ content }) => {
                 break;
             case "2":
                 setSelected(() => ({ first: false, second: true }));
-                setMenu(() => "Mis Reservas");
+                setMenu(() => "Mis");
                 break;
             default:
                 setSelected(() => ({ first: true, second: false }));

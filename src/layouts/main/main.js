@@ -10,16 +10,38 @@ const Layout = ({ children }) => {
     const { menu } = useContext(MenuContext);
     const { lang } = useContext(LangContext);
     const [content, setContent] = useState("login");
+    const [txtMenu, setTxtMenu] = useState("b");
 
     useEffect(() => {
         if (lang === "ca") setContent(() => navbarCa);
         else if (lang === "es") setContent(() => navbarEs);
     }, [lang]);
 
+    useEffect(() => {
+        switch (menu) {
+            case "Reservar":
+                setTxtMenu(() =>
+                    lang === "ca" ? "Reservar" : lang === "es" ? "Reservar" : "Booking"
+                );
+                break;
+            case "Mis":
+                setTxtMenu(() =>
+                    lang === "ca"
+                        ? "Les meves reserves"
+                        : lang === "es"
+                        ? "Mis reservas"
+                        : "My Bookings"
+                );
+                break;
+            default:
+                setTxtMenu(() => "Booking");
+        }
+    }, [menu, lang]);
+
     return (
         <div className="layout">
             <Navbar content={content} />
-            <div className="header">{menu}</div>
+            <div className="header">{txtMenu}</div>
             {children}
         </div>
     );

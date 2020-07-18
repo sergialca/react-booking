@@ -1,18 +1,21 @@
 import React, { useContext, useState, useEffect } from "react";
 import { LogicContext } from "../../context/logic";
-import moment from "moment";
 import "./time.scss";
 
-const Time = ({ time, timeId, room, roomId, setDisplay }) => {
+const Time = ({ time, timeId, room, roomId, setDisplay, day, dayFormatted }) => {
     const { logic, setLogic } = useContext(LogicContext);
-    const [booked, setBooked] = useState(false);
+    const [localState, setLocalState] = useState({
+        day,
+        dayFormatted,
+        timeId,
+        booked: false,
+    });
 
     const onTimeClick = () => {
-        setLogic(() => ({
+        setLogic((prev) => ({
+            ...prev,
             room,
             roomId,
-            day: moment(),
-            dayFormatted: moment().format("L"),
             time,
             timeId: { id: timeId, booked: false },
         }));
@@ -20,13 +23,16 @@ const Time = ({ time, timeId, room, roomId, setDisplay }) => {
     };
 
     useEffect(() => {
-        if (logic.timeId.id === timeId && logic.timeId.booked) {
-            setBooked(() => true);
+        "canvi de logic booked";
+        if (logic.dayFormatted === localState.dayFormatted) {
+            if (logic.timeId.id === localState.timeId && logic.timeId.booked) {
+                setLocalState((prev) => ({ ...prev, booked: true }));
+            }
         }
-    }, [logic.timeId.booked]);
+    }, [logic]);
 
     return (
-        <div className={booked ? "noTime" : "timebadge"} onClick={() => onTimeClick()}>
+        <div className={localState.booked ? "noTime" : "timebadge"} onClick={() => onTimeClick()}>
             <span>{time}</span>
         </div>
     );

@@ -24,6 +24,7 @@ function App() {
         dayFormatted: moment().format("L"),
         time: "0h-2h",
         timeId: { id: "t0", booked: 2 },
+        isSunday: moment().format("dddd") === "Sunday" ? true : false,
     });
     const appId = "kn0fKAr5wiPrx2FEjeIlejuE9s8AjEHaF2vY9zj9";
 
