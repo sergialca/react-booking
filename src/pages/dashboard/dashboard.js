@@ -135,6 +135,7 @@ const Dashboard = (props) => {
 
     return (
         <div className="dashboard">
+            <TimeAlert display={display.timeAlert} aceptar={aceptar} cancelar={cancelar} />
             <div className="filters">
                 <div className="labelInput">
                     <span className="label">{content.day}:</span>
@@ -181,7 +182,6 @@ const Dashboard = (props) => {
                     );
                 })}
             </div>
-            <TimeAlert display={display.timeAlert} aceptar={aceptar} cancelar={cancelar} />
         </div>
     );
 };
