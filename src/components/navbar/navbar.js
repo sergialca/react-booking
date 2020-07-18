@@ -53,7 +53,7 @@ const Navbar = ({ content }) => {
                 >
                     {content.myBooking}
                 </Link>
-                <div className="langu">
+                <div className="lang">
                     <LangDropdown />
                 </div>
             </div>

@@ -35,7 +35,6 @@ $navbar-background-color: #f2f3f3;
     &.responsive {
         position: relative;
         width: 100%;
-        z-index: 1;
         .icon {
             position: absolute;
             float: right;
@@ -65,10 +64,8 @@ $navbar-background-color: #f2f3f3;
         .link:hover {
             color: $hover-color;
         }
+
         .lang {
-            padding: 10px 16px 0px 16px;
-        }
-        .langu {
             padding: 10px 16px 0px 16px;
             display: flex;
             justify-content: center;
@@ -82,7 +79,6 @@ $navbar-background-color: #f2f3f3;
             position: fixed;
             background-color: $navbar-background-color;
             z-index: 1;
-            height: 90%;
 
             .lang {
                 padding: 10px 16px 10px 16px;
@@ -119,11 +115,10 @@ $navbar-background-color: #f2f3f3;
             &.responsive {
                 display: inline-block;
                 width: auto;
-                height: auto;
                 .link {
                     display: inline-block;
                 }
-                .langu {
+                .lang {
                     display: inline-block;
                 }
             }
