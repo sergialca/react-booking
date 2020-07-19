@@ -176,6 +176,7 @@ const Dashboard = (props) => {
             borderRadius: "250px",
             width: "120px",
             fontSize: "16px",
+            padding: "0.5px",
         }),
     };
 
