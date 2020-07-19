@@ -1,15 +1,13 @@
 @import "../../styles/font";
 .dashboard {
     .filters {
-        background-color: #ccc;
         padding: 10px;
-        background-color: #ccc;
         padding: 10px;
         display: flex;
-        /* justify-content: center; */
-        flex-direction: column;
+        flex-wrap: wrap;
         justify-content: center;
         align-items: center;
+        border-bottom: 1px solid #ccc;
 
         .labelInput {
             display: flex;
@@ -18,6 +16,7 @@
             .SingleDatePicker {
                 width: 100%;
                 display: block;
+                margin-right: 40px;
                 .SingleDatePickerInput {
                     background-color: transparent;
                 }
@@ -31,6 +30,10 @@
                             border-radius: 250px;
                             width: 120px;
                             line-height: normal;
+                            border: 1px solid #cccccc;
+                            margin-right: 20px;
+                            font-size: 16px;
+                            padding: 9px 11px;
                         }
                         .DateInput_input:focus {
                             border: 1px solid $primary-color;
@@ -48,6 +51,11 @@
         padding: 10px;
     }
 
+    .isSunday {
+        font-size: 20px;
+        color: #414141;
+    }
+
     @media (min-width: 768px) {
         .filters {
             display: flex;
@@ -58,6 +66,7 @@
                 flex-direction: row;
                 .SingleDatePicker {
                     display: inline-block;
+                    margin-right: 0px;
 
                     .SingleDatePickerInput {
                         background-color: transparent;

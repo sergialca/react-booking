@@ -175,6 +175,7 @@ const Dashboard = (props) => {
             backgroundColor: "white",
             borderRadius: "250px",
             width: "120px",
+            fontSize: "16px",
         }),
     };
 
@@ -204,7 +205,7 @@ const Dashboard = (props) => {
                         readOnly={true}
                         firstDayOfWeek={1}
                         isOutsideRange={(day) =>
-                            day.isBefore(moment()) || day.isAfter(moment().add(7, "days"))
+                            day.isBefore(moment().hours(0)) || day.isAfter(moment().add(7, "days"))
                         }
                         id="dayComp"
                     />
@@ -231,7 +232,7 @@ const Dashboard = (props) => {
                 {display.loading ? (
                     <ClipLoader color={"#0093fc"} size={50} />
                 ) : filters.isSunday ? (
-                    content.all
+                    <span className="isSunday">{content.close}</span>
                 ) : (
                     rooms.map((m) => {
                         return (
