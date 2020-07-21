@@ -41,7 +41,7 @@ const Dashboard = (props) => {
         } else if (lang === "es") {
             setContent(() => dashboardEs);
         }
-        selectableRooms();
+        changeLangSelect();
     }, [lang]);
 
     const verifyUser = async () => {
@@ -115,6 +115,19 @@ const Dashboard = (props) => {
         return;
     };
 
+    const changeLangSelect = () => {
+        const leng = selectable.length;
+        if (leng > 0) {
+            for (let i = 0; i < selectable.length; i++) {
+                if (i === selectable.length - 1) {
+                    //Should use setSelectable?
+                    selectable[i].label = lang === "ca" ? "Totes" : lang === "es" ? "Todas" : "All";
+                    //setSelectable(() => selectable);?
+                }
+            }
+        }
+    };
+
     const selectableRooms = async () => {
         const results = await getRooms();
         for (let i = 0; i < results.length; i++) {
@@ -126,7 +139,7 @@ const Dashboard = (props) => {
                     { value: results[i].id, label: results[i].attributes.name },
                     {
                         value: "all",
-                        label: lang === "ca" ? "Totes" : "Todas",
+                        label: lang === "ca" ? "Totes" : lang === "es" ? "Todas" : "All",
                     },
                 ]);
             } else {
@@ -140,6 +153,7 @@ const Dashboard = (props) => {
 
     useEffect(() => {
         //verifyUser();
+        selectableRooms();
         dbRooms();
         return () => {
             setDisplay((dis) => ({ ...dis, timeAlert: false }));

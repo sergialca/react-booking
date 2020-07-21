@@ -29,16 +29,6 @@ function App() {
         dayPicker: false,
     });
 
-    //console.log("moment", moment());
-    //console.log("moment formatted", moment().subtract(1, "day").format("L"));
-    //console.log("moment is before", moment().subtract(1, "day").isBefore(moment()));
-    //console.log("moment is after", moment().isAfter(moment()));
-    //console.log("moment is before", moment().isSameOrBefore(moment()));
-    console.log(
-        "App -> moment().isBefore(moment().hours(23))",
-        moment().isBefore(moment().hours(23))
-    );
-
     const [booking, setBooking] = useState({
         room: "roomName",
         roomId: "all",
