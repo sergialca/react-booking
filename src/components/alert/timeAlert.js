@@ -1,23 +1,41 @@
 import React, { useContext } from "react";
-import "./timeAlert.scss";
 import { BookingContext } from "../../context/booking";
+import { MdInfo } from "react-icons/md";
+import "./timeAlert.scss";
+import { LangContext } from "../../context/lang";
+import { FiltersContext } from "../../context/filters";
 
-const TimeAlert = ({ aceptar, display, cancelar }) => {
+const TimeAlert = ({ aceptar, display, cancelar, txt }) => {
     const { booking } = useContext(BookingContext);
+    const { filters } = useContext(FiltersContext);
+    const { lang } = useContext(LangContext);
+
     return (
         <div className={display ? "timeAlert" : "noAlert"}>
             <div className="alertBack"></div>
             <div className="container">
                 <div className="info">
                     <div className="txtWrap">
-                        <span className="txt">{`Estàs seguro que quieres reservar la ${booking.room} el dia ${booking.dayFormatted} de ${booking.time}`}</span>
+                        <div className="inline">
+                            <MdInfo className="icon" />
+                            <span className="txt">
+                                {console.log()}
+                                {`${txt.timeAlertSure} ${booking.room} ${txt.timeAlertDay}`}{" "}
+                                {lang === "ca"
+                                    ? filters.dayEuropean
+                                    : lang === "es"
+                                    ? filters.dayEuropean
+                                    : filters.formattedDay}{" "}
+                                {`${txt.timeAlertOf} ${booking.time}?`}
+                            </span>
+                        </div>
                     </div>
                     <div className="btnWrap">
                         <button className="btn aceptar" onClick={() => aceptar()}>
-                            Aceptar
+                            {txt.timeAlertOk}
                         </button>
-                        <button className="btn" onClick={() => cancelar()}>
-                            Cancelar
+                        <button className="btnCancel" onClick={() => cancelar()}>
+                            {txt.timeAlertBad}
                         </button>
                     </div>
                 </div>

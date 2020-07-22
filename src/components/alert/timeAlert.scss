@@ -35,6 +35,17 @@
             align-items: flex-end;
             flex-wrap: wrap;
             @include fade(0.8s, 0s);
+
+            .inline {
+                display: flex;
+            }
+
+            .icon {
+                color: $info-color;
+                font-size: 30px;
+                vertical-align: middle;
+                margin-right: 10px;
+            }
             .txtWrap {
                 font-size: $mobile-font;
             }
@@ -59,6 +70,20 @@
                 .btn:active {
                     @include primaryBtnActive();
                 }
+
+                .btnCancel {
+                    @include cancelBtn(100px);
+                    font-size: $mobile-font;
+                }
+                .btnCancel:hover {
+                    @include cancelBtnHover();
+                }
+                .btnCancel:focus {
+                    @include cancelBtnFocus();
+                }
+                .btnCancel:active {
+                    @include cancelBtnActive();
+                }
             }
         }
     }
@@ -70,11 +95,14 @@
                 min-width: 40%;
                 height: 30%;
                 min-height: 30%;
-                .txtWrap {
-                    font-size: $desktop-font;
-                }
-                .btnWrap .btn {
-                    font-size: $desktop-font;
+
+                .btnWrap {
+                    .btn {
+                        font-size: $desktop-font;
+                    }
+                    .btnCancel {
+                        font-size: $desktop-font;
+                    }
                 }
             }
         }

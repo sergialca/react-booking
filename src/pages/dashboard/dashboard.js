@@ -196,7 +196,12 @@ const Dashboard = (props) => {
 
     return (
         <div className="dashboard">
-            <TimeAlert display={display.timeAlert} aceptar={aceptar} cancelar={cancelar} />
+            <TimeAlert
+                display={display.timeAlert}
+                txt={content}
+                aceptar={aceptar}
+                cancelar={cancelar}
+            />
             <div className="filters">
                 <div className="labelInput">
                     <span className="label">{content.day}:</span>
@@ -207,6 +212,7 @@ const Dashboard = (props) => {
                                 ...prev,
                                 day: date,
                                 dayFormatted: date.format("L"),
+                                dayEuropean: `${date.date()}/${date.month() + 1}/${date.year()}`,
                                 isSunday: date.format("dddd") === "Sunday" ? true : false,
                                 dayPicker: true,
                             }))

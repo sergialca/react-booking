@@ -4,5 +4,10 @@
     "day": "Día",
     "room": "Sala",
     "all": "Todas",
-    "close": "Cerramos los domingos"
+    "close": "Cerramos los domingos",
+    "timeAlertSure": "Estàs seguro que quieres reservar la",
+    "timeAlertDay": "el día",
+    "timeAlertOf": "de",
+    "timeAlertOk": "Aceptar",
+    "timeAlertBad": "Cancelar"
 }

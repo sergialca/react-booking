@@ -22,6 +22,7 @@ function App() {
         roomId: "all",
         day: moment(),
         dayFormatted: moment().format("L"),
+        dayEuropean: `${moment().date()}/${moment().month() + 1}/${moment().year()}`,
         time: "0h-2h",
         timeId: "t0",
         isSunday: moment().format("dddd") === "Sunday" ? true : false,
