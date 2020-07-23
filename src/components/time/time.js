@@ -20,7 +20,7 @@ const Time = ({ time, timeId, room, roomId, setDisplay, dayFormatted }) => {
             timeId,
             booked: false,
         }));
-        setDisplay(() => ({ timeAlert: true }));
+        setDisplay((prev) => ({ ...prev, timeAlert: true }));
     };
 
     useEffect(() => {

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { BookingContext } from "../../context/booking";
 import { MdInfo } from "react-icons/md";
-import "./timeAlert.scss";
 import { LangContext } from "../../context/lang";
 import { FiltersContext } from "../../context/filters";
+import "./timeAlert.scss";
 
 const TimeAlert = ({ aceptar, display, cancelar, txt }) => {
     const { booking } = useContext(BookingContext);
@@ -11,7 +11,7 @@ const TimeAlert = ({ aceptar, display, cancelar, txt }) => {
     const { lang } = useContext(LangContext);
 
     return (
-        <div className={display ? "timeAlert" : "noAlert"}>
+        <div className={display ? "timeAlert" : "noTimeAlert"}>
             <div className="alertBack"></div>
             <div className="container">
                 <div className="info">

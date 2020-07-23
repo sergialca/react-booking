@@ -2,8 +2,10 @@ $primary-color: #0093fc;
 $hover-color: #00d6fc;
 $active-color: #00fcfc;
 $error-color: #cc0000;
-$cancel-color: #fc4c4c;
-$cancel-hover-color: #ff9595;
+$secondary-color: #ccc;
+$secondary-hover: #d6d6d6;
+$success-back: #d4edda;
+$fail-back: #f8d7da;
 $info-color: #6100cc;
 $mobile-font: 16px;
 $desktop-font: 13.3333px;
@@ -156,18 +158,18 @@ $desktop-font: 13.3333px;
     margin: 0 auto;
     border-width: 0px;
     border-style: none;
-    background-color: $cancel-color;
+    background-color: $secondary-color;
     cursor: pointer;
 }
 @mixin cancelBtnHover() {
-    background-color: $cancel-hover-color;
+    background-color: $secondary-hover;
 }
 @mixin cancelBtnFocus() {
     outline: none;
-    background-color: $cancel-color;
+    background-color: $secondary-color;
 }
 @mixin cancelBtnActive() {
-    background-color: $cancel-color;
+    background-color: $secondary-color;
 }
 
 @mixin resetSelect() {

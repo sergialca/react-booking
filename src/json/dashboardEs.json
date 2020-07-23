@@ -9,5 +9,7 @@
     "timeAlertDay": "el día",
     "timeAlertOf": "de",
     "timeAlertOk": "Aceptar",
-    "timeAlertBad": "Cancelar"
+    "timeAlertBad": "Cancelar",
+    "successAlertTxt": "Reserva efectuada con éxito",
+    "successAlertBtn": "Aceptar"
 }

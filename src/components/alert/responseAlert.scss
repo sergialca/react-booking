@@ -1,5 +1,5 @@
 @import "../../styles/font";
-.timeAlert {
+.responseAlert {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -25,7 +25,6 @@
 
         .info {
             border-radius: 10px;
-            background-color: #fff3cd;
             width: 90%;
             min-width: 80%;
             height: 30%;
@@ -35,6 +34,13 @@
             align-items: flex-end;
             flex-wrap: wrap;
             @include fade(0.8s, 0s);
+
+            &.success {
+                background-color: $success-back;
+            }
+            &.fail {
+                background-color: $fail-back;
+            }
 
             .inline {
                 display: flex;
@@ -98,6 +104,13 @@
                 height: 30%;
                 min-height: 30%;
 
+                &.success {
+                    background-color: $success-back;
+                }
+                &.fail {
+                    background-color: $fail-back;
+                }
+
                 .btnWrap {
                     .btn {
                         font-size: $desktop-font;
@@ -111,6 +124,6 @@
     }
 }
 
-.noTimeAlert {
+.noResponseAlert {
     display: none;
 }

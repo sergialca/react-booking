@@ -4,6 +4,7 @@ import dashboardEs from "../../json/dashboardEs.json";
 import Room from "../../components/room/room";
 import Select from "react-select";
 import TimeAlert from "../../components/alert/timeAlert";
+import ResponseAlert from "../../components/alert/responseAlert";
 import ClipLoader from "react-spinners/ClipLoader";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
@@ -21,7 +22,12 @@ const Dashboard = (props) => {
     const { filters, setFilters } = useContext(FiltersContext);
     const { booking, setBooking } = useContext(BookingContext);
     const { user } = useContext(UserContext);
-    const [display, setDisplay] = useState({ timeAlert: false, loading: false });
+    const [display, setDisplay] = useState({
+        timeAlert: false,
+        loading: false,
+        responseAlert: false,
+        response: "ok",
+    });
     const [datePicker, setDayPicker] = useState({ focus: false });
     const [selectable, setSelectable] = useState([]);
     const [rooms, setRooms] = useState([]);
@@ -170,17 +176,22 @@ const Dashboard = (props) => {
         }
     }, [filters.select, filters.dayPicker]);
 
-    const aceptar = async () => {
+    const aceptarTimeAlert = async () => {
         await newBooking(user.id, booking.roomId, booking.dayFormatted, booking.time);
+        //enviar mail
         setBooking((prev) => ({
             ...prev,
             booked: true,
         }));
-        setDisplay((dis) => ({ ...dis, timeAlert: false }));
+        setDisplay((dis) => ({ ...dis, timeAlert: false, responseAlert: true }));
     };
 
     const cancelar = () => {
         setDisplay((dis) => ({ ...dis, timeAlert: false }));
+    };
+
+    const aceptarResponseAlert = async () => {
+        setDisplay((dis) => ({ ...dis, responseAlert: false }));
     };
 
     const colourStyles = {
@@ -196,10 +207,17 @@ const Dashboard = (props) => {
 
     return (
         <div className="dashboard">
+            <ResponseAlert
+                aceptar={aceptarResponseAlert}
+                response={display.response}
+                txt={content.successAlertTxt}
+                btnTxt={content.successAlertBtn}
+                display={display.responseAlert}
+            />
             <TimeAlert
                 display={display.timeAlert}
                 txt={content}
-                aceptar={aceptar}
+                aceptar={aceptarTimeAlert}
                 cancelar={cancelar}
             />
             <div className="filters">
