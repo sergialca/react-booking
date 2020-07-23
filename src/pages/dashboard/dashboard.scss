@@ -36,7 +36,7 @@
                             padding: 9px 11px;
                         }
                         .DateInput_input:focus {
-                            box-shadow: 0 0 0 1px $primary-color;
+                            border-color: 2px solid $primary-color;
                         }
                     }
                 }
@@ -83,7 +83,7 @@
                                 line-height: normal;
                             }
                             .DateInput_input:focus {
-                                border: 1px solid $primary-color;
+                                border: 2px solid $primary-color;
                             }
                         }
                     }
