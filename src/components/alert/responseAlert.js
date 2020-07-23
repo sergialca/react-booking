@@ -3,7 +3,6 @@ import { MdInfo } from "react-icons/md";
 import "./responseAlert.scss";
 
 const ResponseAlert = ({ aceptar, display, txt, response, btnTxt }) => {
-    console.log("ResponseAlert -> response", response);
     return (
         <div className={display ? "responseAlert" : "noResponseAlert"}>
             <div className="alertBack"></div>
