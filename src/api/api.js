@@ -93,3 +93,11 @@ export const getRoom = async (roomName) => {
     let res = await query.find();
     return res;
 };
+
+export const getUserBookings = async () => {
+    const Booking = Parse.Object.extend("Booking");
+    const query = new Parse.Query(Booking);
+    query.equalTo("user", Parse.User.current());
+    let result = await query.find();
+    return result;
+};
