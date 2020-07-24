@@ -1,0 +1,31 @@
+@import "../../styles/font";
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+
+    .row {
+        color: #808080;
+        height: 50px;
+
+        td {
+            text-align: center;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .trHeader {
+            height: 60px;
+        }
+        .row {
+            color: #808080;
+            height: 50px;
+            border-bottom: 1px solid #ccc;
+        }
+    }
+}

@@ -155,6 +155,7 @@ $desktop-font: 13.3333px;
     width: $width;
     padding: 10px 20px;
     border-radius: 250px;
+    text-align: center;
     margin: 0 auto;
     border-width: 0px;
     border-style: none;
@@ -170,6 +171,28 @@ $desktop-font: 13.3333px;
 }
 @mixin cancelBtnActive() {
     background-color: $secondary-color;
+}
+
+/*BTN DELETE*/
+@mixin btn($width, $color) {
+    width: $width;
+    padding: 10px 20px;
+    border-radius: 250px;
+    margin: 0 auto;
+    border-width: 0px;
+    border-style: none;
+    background-color: $color;
+    cursor: pointer;
+}
+@mixin btnHover($color) {
+    background-color: $color;
+}
+@mixin btnFocus($color) {
+    outline: none;
+    background-color: $color;
+}
+@mixin btnActive($color) {
+    background-color: $color;
 }
 
 @mixin resetSelect() {

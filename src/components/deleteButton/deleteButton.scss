@@ -1,0 +1,15 @@
+@import "../../styles/font";
+
+.deleteButton {
+    @include btn(50, $error-color);
+}
+
+.deleteButton:hover {
+    @include btnHover($fail-back);
+}
+.deleteButton:focus {
+    @include btnFocus($error-color);
+}
+.deleteButton:active {
+    @include btnActive($fail-back);
+}

@@ -101,3 +101,10 @@ export const getUserBookings = async () => {
     let result = await query.find();
     return result;
 };
+
+export const getRoomById = async (id) => {
+    const Rooms = Parse.Object.extend("Rooms");
+    const query = new Parse.Query(Rooms);
+    let res = await query.get(id);
+    return res;
+};
