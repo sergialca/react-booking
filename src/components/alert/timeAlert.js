@@ -19,7 +19,6 @@ const TimeAlert = ({ aceptar, display, cancelar, txt }) => {
                         <div className="inline">
                             <MdInfo className="icon" />
                             <span className="txt">
-                                {console.log()}
                                 {`${txt.timeAlertSure} ${booking.room} ${txt.timeAlertDay}`}{" "}
                                 {lang === "ca"
                                     ? filters.dayEuropean

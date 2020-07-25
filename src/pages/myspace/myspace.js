@@ -21,18 +21,21 @@ const Myspace = () => {
             day: "23/06/2018",
             time: "9-10",
             delete: "no",
+            id: "asd",
         },
         {
             roomName: "sala 1",
             day: "23/06/2018",
             time: "9-10",
             delete: "no",
+            id: "vbn",
         },
         {
             roomName: "sala 2",
             day: "23/06/2018",
             time: "9-10",
             delete: "no",
+            id: "uoi",
         },
     ]);
 
@@ -67,18 +70,22 @@ const Myspace = () => {
                     {
                         header: "Sala",
                         id: "roomName",
+                        unique: "h1ca",
                     },
                     {
                         header: "Dia",
                         id: "day",
+                        unique: "h2ca",
                     },
                     {
                         header: "hora",
                         id: "time",
+                        unique: "h3ca",
                     },
                     {
-                        header: "Eliminar",
+                        header: "",
                         id: "delete",
+                        unique: "h4ca",
                     },
                 ]);
                 break;
@@ -87,18 +94,22 @@ const Myspace = () => {
                     {
                         header: "Sala",
                         id: "roomName",
+                        unique: "h1es",
                     },
                     {
                         header: "Dia",
                         id: "day",
+                        unique: "h2es",
                     },
                     {
                         header: "hora",
                         id: "time",
+                        unique: "h3es",
                     },
                     {
-                        header: "Eliminar",
+                        header: "",
                         id: "delete",
+                        unique: "h4es",
                     },
                 ]);
                 break;
@@ -107,18 +118,22 @@ const Myspace = () => {
                     {
                         header: "Room",
                         id: "room",
+                        unique: "h1en",
                     },
                     {
                         header: "day",
                         id: "day",
+                        unique: "h2en",
                     },
                     {
                         header: "time",
                         id: "time",
+                        unique: "h3en",
                     },
                     {
-                        header: "Delete",
+                        header: "",
                         id: "delete",
+                        unique: "h4en",
                     },
                 ]);
                 break;
@@ -128,13 +143,13 @@ const Myspace = () => {
     };
 
     useEffect(() => {
-        //dbUserBoo();
+        dbUserBoo();
         getColumns();
     }, []);
 
     return (
         <div className="mySpace">
-            <Table btnTxt={content.btnTxt} header={tableCol} data={tableData} />
+            <Table key={"table"} btnTxt={content.btnTxt} header={tableCol} data={tableData} />
         </div>
     );
 };

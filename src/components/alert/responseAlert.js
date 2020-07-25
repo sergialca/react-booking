@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { MdInfo } from "react-icons/md";
 import "./responseAlert.scss";
 

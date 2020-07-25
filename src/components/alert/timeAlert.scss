@@ -76,6 +76,7 @@
                 .btnCancel {
                     @include cancelBtn(100px);
                     font-size: $mobile-font;
+                    margin: 0 auto;
                 }
                 .btnCancel:hover {
                     @include cancelBtnHover();

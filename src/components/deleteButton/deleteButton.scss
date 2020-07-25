@@ -1,7 +1,8 @@
 @import "../../styles/font";
 
 .deleteButton {
-    @include btn(50, $error-color);
+    @include btn(auto, $error-color);
+    font-size: $mobile-font;
 }
 
 .deleteButton:hover {
@@ -12,4 +13,10 @@
 }
 .deleteButton:active {
     @include btnActive($fail-back);
+}
+
+@media (min-width: 768px) {
+    .deleteButton {
+        font-size: $desktop-font;
+    }
 }

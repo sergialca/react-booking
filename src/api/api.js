@@ -108,3 +108,13 @@ export const getRoomById = async (id) => {
     let res = await query.get(id);
     return res;
 };
+
+export const deleteBooking = async (id) => {
+    const Booking = Parse.Object.extend("Booking");
+    const query = new Parse.Query(Booking);
+    // here you put the objectId that you want to delete
+    let obToDelete = await query.get(id);
+    let deleted = await obToDelete.destroy();
+    console.log("deleteBooking -> deleted", deleted);
+    return deleted;
+};

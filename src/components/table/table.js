@@ -1,10 +1,11 @@
 import React from "react";
-import DeleteButton from "../deleteButton/deleteButton";
+import Row from "../row/row";
+import { deleteBooking } from "../../api/api";
 import "./table.scss";
 
 const Table = ({ header, data, btnTxt }) => {
-    const deleteRow = () => {
-        console.log("DR");
+    const deleteRow = async (id) => {
+        deleteBooking(id);
     };
 
     return (
@@ -13,20 +14,21 @@ const Table = ({ header, data, btnTxt }) => {
                 <thead>
                     <tr className="trHeader">
                         {header.map((h) => (
-                            <th>{h.header}</th>
+                            <th key={h.unique}>{h.header}</th>
                         ))}
                     </tr>
                 </thead>
                 <tbody>
                     {data.map((el) => (
-                        <tr className="row" key={el.id}>
-                            <td>{el.roomName}</td>
-                            <td>{el.day}</td>
-                            <td>{el.time}</td>
-                            <td>
-                                <DeleteButton deleteRow={deleteRow} txt={btnTxt} />
-                            </td>
-                        </tr>
+                        <Row
+                            key={el.id}
+                            id={el.id}
+                            roomName={el.roomName}
+                            day={el.day}
+                            time={el.time}
+                            deleteRow={deleteRow}
+                            btnTxt={btnTxt}
+                        />
                     ))}
                 </tbody>
             </table>

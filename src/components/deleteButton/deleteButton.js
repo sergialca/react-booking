@@ -1,10 +1,16 @@
 import React from "react";
 import "./deleteButton.scss";
 
-const DeleteButton = ({ deleteRow, txt }) => {
+const DeleteButton = ({ deleteRow, btnTxt, id, setDeleted }) => {
     return (
-        <button className="deleteButton" onClick={() => deleteRow()}>
-            {txt}
+        <button
+            className="deleteButton"
+            onClick={() => {
+                deleteRow(id);
+                setDeleted(() => true);
+            }}
+        >
+            {btnTxt}
         </button>
     );
 };
