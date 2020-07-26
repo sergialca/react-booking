@@ -2,6 +2,7 @@
 
 .deleteButton {
     @include btn(auto, $error-color);
+    color: #fff;
     font-size: $mobile-font;
 }
 

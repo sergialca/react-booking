@@ -177,7 +177,14 @@ const Dashboard = (props) => {
     }, [filters.select, filters.dayPicker]);
 
     const aceptarTimeAlert = async () => {
-        await newBooking(user.id, booking.roomId, booking.dayFormatted, booking.time);
+        await newBooking(
+            user.id,
+            booking.roomId,
+            booking.dayFormatted,
+            booking.time,
+            booking.timeId,
+            filters.dayEuropean
+        );
         //enviar mail
         setBooking((prev) => ({
             ...prev,

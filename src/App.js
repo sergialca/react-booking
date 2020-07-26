@@ -13,6 +13,7 @@ import { LangContext } from "./context/lang";
 import { MenuContext } from "./context/menu";
 import { FiltersContext } from "./context/filters";
 import { BookingContext } from "./context/booking";
+import { DeleteContext } from "./context/deleteBooking";
 
 function App() {
     const [lang, setLang] = useState("es");
@@ -57,6 +58,15 @@ function App() {
 
     const [user, setUser] = useState(getUserLoged());
 
+    const [deleteData, setDeleteData] = useState({
+        room: "roomName",
+        day: moment().format("L"),
+        time: "10-12",
+        timeId: "t0s0",
+        deleted: false,
+        euroDate: "14/4/2000",
+    });
+
     Parse.serverURL = "https://parseapi.back4app.com"; // This is your Server URL
     Parse.initialize(
         appId,
@@ -69,13 +79,19 @@ function App() {
                 <MenuContext.Provider value={{ menu, setMenu }}>
                     <FiltersContext.Provider value={{ filters, setFilters }}>
                         <BookingContext.Provider value={{ booking, setBooking }}>
-                            <Switch>
-                                <Route path="/login" component={Login} />
-                                <Route path="/signup" component={Register} />
-                                <AppRoute path="/dashboard" component={Dashboard} layout={Layout} />
-                                <AppRoute path="/myspace" component={Myspace} layout={Layout} />
-                                <Redirect from="/" to={"/dashboard"} />
-                            </Switch>
+                            <DeleteContext.Provider value={{ deleteData, setDeleteData }}>
+                                <Switch>
+                                    <Route path="/login" component={Login} />
+                                    <Route path="/signup" component={Register} />
+                                    <AppRoute
+                                        path="/dashboard"
+                                        component={Dashboard}
+                                        layout={Layout}
+                                    />
+                                    <AppRoute path="/myspace" component={Myspace} layout={Layout} />
+                                    <Redirect from="/" to={"/dashboard"} />
+                                </Switch>
+                            </DeleteContext.Provider>
                         </BookingContext.Provider>
                     </FiltersContext.Provider>
                 </MenuContext.Provider>

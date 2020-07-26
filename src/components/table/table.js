@@ -1,15 +1,11 @@
 import React from "react";
 import Row from "../row/row";
-import { deleteBooking } from "../../api/api";
+
 import "./table.scss";
 
-const Table = ({ header, data, btnTxt }) => {
-    const deleteRow = async (id) => {
-        deleteBooking(id);
-    };
-
+const Table = ({ header, data, btnTxt, setDisplay }) => {
     return (
-        <div>
+        <div className="containerTable">
             <table className="table">
                 <thead>
                     <tr className="trHeader">
@@ -25,9 +21,11 @@ const Table = ({ header, data, btnTxt }) => {
                             id={el.id}
                             roomName={el.roomName}
                             day={el.day}
+                            euroDate={el.euroDate}
+                            timeId={el.timeId}
                             time={el.time}
-                            deleteRow={deleteRow}
                             btnTxt={btnTxt}
+                            setDisplay={setDisplay}
                         />
                     ))}
                 </tbody>

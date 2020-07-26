@@ -1,4 +1,8 @@
 @import "../../styles/font";
+
+.containerTable {
+    padding: 10px;
+}
 .table {
     width: auto;
     border-collapse: collapse;
@@ -8,12 +12,12 @@
     width: 100%;
     margin: 0 auto;
     position: relative;
-    font-size: $mobile-font;
+    //font-size: $mobile-font;
 }
 
 @media (min-width: 768px) {
     .table {
-        font-size: $desktop-font;
+        //font-size: $desktop-font;
         width: 100%;
         overflow-y: hidden;
         .trHeader {

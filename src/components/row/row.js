@@ -1,21 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import DeleteButton from "../deleteButton/deleteButton";
 import "./row.scss";
+import { LangContext } from "../../context/lang";
+import { DeleteContext } from "../../context/deleteBooking";
 
-const Row = ({ id, roomName, day, time, deleteRow, btnTxt }) => {
-    const [deleted, setDeleted] = useState(false);
+const Row = ({ id, roomName, day, euroDate, time, timeId, btnTxt, setDisplay }) => {
+    const { lang } = useContext(LangContext);
+    const { deleteData } = useContext(DeleteContext);
+    const [deleted, setDeleted] = useState({
+        id,
+        deleted: false,
+    });
+
+    useEffect(() => {
+        if (deleteData.id === deleted.id) {
+            setDeleted((prev) => ({ ...prev, deleted: deleteData.deleted }));
+        }
+    }, [deleteData.deleted]);
 
     return (
-        <tr className={deleted ? "noRow" : "row"} rowId={id}>
+        <tr className={deleted.deleted ? "noRow" : "row"} rowid={id}>
             <td>{roomName}</td>
-            <td>{day}</td>
+            {lang === "ca" || lang === "es" ? <td>{euroDate}</td> : <td>{day}</td>}
             <td>{time}</td>
             <td>
                 <DeleteButton
-                    deleteRow={deleteRow}
-                    setDeleted={setDeleted}
                     id={id}
                     btnTxt={btnTxt}
+                    room={roomName}
+                    day={day}
+                    euroDate={euroDate}
+                    time={time}
+                    timeId={timeId}
+                    setDisplay={setDisplay}
                 />
             </td>
         </tr>

@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
+import { DeleteContext } from "../../context/deleteBooking";
 import "./deleteButton.scss";
 
-const DeleteButton = ({ deleteRow, btnTxt, id, setDeleted }) => {
+const DeleteButton = ({ btnTxt, setDisplay, id, room, day, euroDate, time, timeId }) => {
+    const { setDeleteData } = useContext(DeleteContext);
+
+    const onBtnClick = () => {
+        setDeleteData(() => ({
+            id,
+            room,
+            day,
+            euroDate,
+            time,
+            timeId,
+            deleted: false,
+        }));
+        setDisplay((prev) => ({
+            ...prev,
+            deleteAlert: true,
+        }));
+    };
     return (
-        <button
-            className="deleteButton"
-            onClick={() => {
-                deleteRow(id);
-                setDeleted(() => true);
-            }}
-        >
+        <button className="deleteButton" onClick={() => onBtnClick()}>
             {btnTxt}
         </button>
     );

@@ -46,7 +46,7 @@ export const isUserLoged = async () => {
     return localUser ? true : false;
 };
 
-export const newBooking = async (userId, roomId, day, time) => {
+export const newBooking = async (userId, roomId, day, time, timeId, euroDate) => {
     try {
         const val = await axios({
             method: "post",
@@ -56,6 +56,8 @@ export const newBooking = async (userId, roomId, day, time) => {
                 user: { __type: "Pointer", className: "_User", objectId: userId },
                 day,
                 time,
+                timeId,
+                euroDate,
                 room: { __type: "Pointer", className: "Rooms", objectId: roomId },
             },
         });
@@ -112,9 +114,8 @@ export const getRoomById = async (id) => {
 export const deleteBooking = async (id) => {
     const Booking = Parse.Object.extend("Booking");
     const query = new Parse.Query(Booking);
-    // here you put the objectId that you want to delete
     let obToDelete = await query.get(id);
-    let deleted = await obToDelete.destroy();
-    console.log("deleteBooking -> deleted", deleted);
-    return deleted;
+    console.log("deleteBooking -> obToDelete", obToDelete);
+    await obToDelete.destroy();
+    return;
 };

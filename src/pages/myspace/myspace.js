@@ -1,43 +1,33 @@
 import React, { useEffect, useContext, useState } from "react";
 import { LangContext } from "../../context/lang";
 import Table from "../../components/table/table";
+import DeleteAlert from "../../components/alert/deleteAlert";
+import ClipLoader from "react-spinners/ClipLoader";
 import myspaceCa from "../../json/myspaceCa.json";
 import myspaceEs from "../../json/myspaceEs.json";
-import { getUserBookings, getRoomById } from "../../api/api";
+import { getUserBookings, getRoomById, deleteBooking } from "../../api/api";
+import { DeleteContext } from "../../context/deleteBooking";
 import "./myspace.scss";
+import { BookingContext } from "../../context/booking";
 
 const Myspace = () => {
     const { lang } = useContext(LangContext);
+    const { deleteData, setDeleteData } = useContext(DeleteContext);
+    const { setBooking } = useContext(BookingContext);
     const [content, setContent] = useState("es");
+    const [display, setDisplay] = useState({
+        deleteAlert: false,
+        loading: false,
+        responseAlert: false,
+        response: "ok",
+    });
     const [tableCol, setTableCol] = useState([
         {
             header: "Sala",
             id: "roomName",
         },
     ]);
-    const [tableData, setTableData] = useState([
-        {
-            roomName: "sala 1",
-            day: "23/06/2018",
-            time: "9-10",
-            delete: "no",
-            id: "asd",
-        },
-        {
-            roomName: "sala 1",
-            day: "23/06/2018",
-            time: "9-10",
-            delete: "no",
-            id: "vbn",
-        },
-        {
-            roomName: "sala 2",
-            day: "23/06/2018",
-            time: "9-10",
-            delete: "no",
-            id: "uoi",
-        },
-    ]);
+    const [tableData, setTableData] = useState([]);
 
     useEffect(() => {
         if (lang === "ca") {
@@ -48,6 +38,10 @@ const Myspace = () => {
     }, [lang]);
 
     const dbUserBoo = async () => {
+        setDisplay((prev) => ({
+            ...prev,
+            loading: true,
+        }));
         const res = await getUserBookings();
         let ob = {};
         for (let i = 0; i < res.length; i++) {
@@ -56,11 +50,17 @@ const Myspace = () => {
                 day: res[i].attributes.day,
                 time: res[i].attributes.time,
                 roomName: roomName.attributes.name,
+                timeId: res[i].attributes.timeId,
+                euroDate: res[i].attributes.euroDate,
                 id: res[i].id,
             };
             if (i === 0) setTableData(() => [ob]);
             else setTableData((prev) => [...prev, ob]);
         }
+        setDisplay((prev) => ({
+            ...prev,
+            loading: false,
+        }));
     };
 
     const getColumns = () => {
@@ -147,9 +147,50 @@ const Myspace = () => {
         getColumns();
     }, []);
 
+    const acceptDeleteAlert = async () => {
+        await deleteBooking(deleteData.id);
+        setDeleteData((prev) => ({
+            ...prev,
+            deleted: true,
+        }));
+        setBooking(() => ({
+            dayFormatted: deleteData.day,
+            room: deleteData.room,
+            roomId: "",
+            time: deleteData.time,
+            timeId: deleteData.timeId,
+            booked: false,
+        }));
+        setDisplay((dis) => ({ ...dis, deleteAlert: false, responseAlert: true }));
+    };
+
+    const cancel = () => {
+        setDisplay((dis) => ({ ...dis, deleteAlert: false }));
+    };
+
     return (
-        <div className="mySpace">
-            <Table key={"table"} btnTxt={content.btnTxt} header={tableCol} data={tableData} />
+        <div className={display.loading ? "mySpaceLoading" : "mySpace"}>
+            <DeleteAlert
+                display={display.deleteAlert}
+                accept={acceptDeleteAlert}
+                cancel={cancel}
+                txt={content}
+            />
+            {display.loading ? (
+                <ClipLoader color={"#00d6fc"} size={50} />
+            ) : tableData.length > 0 ? (
+                <Table
+                    key={"table"}
+                    btnTxt={content.btnTxt}
+                    header={tableCol}
+                    data={tableData}
+                    setDisplay={setDisplay}
+                />
+            ) : (
+                <div className="empty">
+                    <span>{content.empty}</span>
+                </div>
+            )}
         </div>
     );
 };
