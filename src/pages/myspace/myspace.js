@@ -35,6 +35,7 @@ const Myspace = () => {
         } else if (lang === "es") {
             setContent(() => myspaceEs);
         }
+        getColumns();
     }, [lang]);
 
     const dbUserBoo = async () => {
@@ -97,7 +98,7 @@ const Myspace = () => {
                         unique: "h1es",
                     },
                     {
-                        header: "Dia",
+                        header: "Día",
                         id: "day",
                         unique: "h2es",
                     },
