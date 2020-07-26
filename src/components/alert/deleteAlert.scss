@@ -8,7 +8,7 @@
 
     .alertBack {
         width: 100%;
-        height: 100%;
+        height: 110%;
         position: fixed;
         background-color: #fff;
         opacity: 0.8;
@@ -34,6 +34,7 @@
             display: flex;
             align-items: flex-end;
             flex-wrap: wrap;
+            margin-top: 80px;
             @include fade(0.8s, 0s);
 
             .inline {
