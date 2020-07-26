@@ -24,8 +24,6 @@ function App() {
         day: moment(),
         dayFormatted: moment().format("L"),
         dayEuropean: `${moment().date()}/${moment().month() + 1}/${moment().year()}`,
-        time: "0h-2h",
-        timeId: "t0",
         isSunday: moment().format("dddd") === "Sunday" ? true : false,
         select: false,
         dayPicker: false,
@@ -48,7 +46,7 @@ function App() {
                 ? {
                       logged: true,
                       name: session.name,
-                      email: session.mail,
+                      mail: session.email,
                       token: session.sessionToken,
                       id: session.objectId,
                   }

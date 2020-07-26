@@ -13,7 +13,14 @@ import { LangContext } from "../../context/lang";
 import { FiltersContext } from "../../context/filters";
 import { BookingContext } from "../../context/booking";
 import { UserContext } from "../../context/user";
-import { newBooking, getValUserLoged, getRooms, getBooking, getRoom } from "../../api/api";
+import {
+    newBooking,
+    getValUserLoged,
+    getRooms,
+    getBooking,
+    getRoom,
+    bookingMail,
+} from "../../api/api";
 import moment from "moment";
 import "./dashboard.scss";
 
@@ -177,7 +184,7 @@ const Dashboard = (props) => {
     }, [filters.select, filters.dayPicker]);
 
     const aceptarTimeAlert = async () => {
-        await newBooking(
+        const newBo = await newBooking(
             user.id,
             booking.roomId,
             booking.dayFormatted,
@@ -185,12 +192,32 @@ const Dashboard = (props) => {
             booking.timeId,
             filters.dayEuropean
         );
-        //enviar mail
-        setBooking((prev) => ({
-            ...prev,
-            booked: true,
-        }));
-        setDisplay((dis) => ({ ...dis, timeAlert: false, responseAlert: true }));
+        if (newBo) {
+            setBooking((prev) => ({
+                ...prev,
+                booked: true,
+            }));
+            await bookingMail(
+                lang,
+                user.mail,
+                booking.room,
+                filters.dayFormatted,
+                filters.dayEuropean,
+                booking.time
+            );
+            setDisplay((dis) => ({
+                ...dis,
+                timeAlert: false,
+                responseAlert: true,
+                response: "ok",
+            }));
+        } else
+            setDisplay((dis) => ({
+                ...dis,
+                timeAlert: false,
+                responseAlert: true,
+                response: "fail",
+            }));
     };
 
     const cancelar = () => {
@@ -217,7 +244,8 @@ const Dashboard = (props) => {
             <ResponseAlert
                 aceptar={aceptarResponseAlert}
                 response={display.response}
-                txt={content.successAlertTxt}
+                txtOk={content.successAlertOkTxt}
+                txtFail={content.successAlertFailTxt}
                 btnTxt={content.successAlertBtn}
                 display={display.responseAlert}
             />

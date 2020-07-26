@@ -10,6 +10,7 @@
     "timeAlertOf": "de",
     "timeAlertOk": "Aceptar",
     "timeAlertBad": "Cancelar",
-    "successAlertTxt": "Reserva efectuada con éxito",
+    "successAlertOkTxt": "Reserva efectuada con éxito",
+    "successAlertFailTxt": "No se ha podido efectuar la reserva",
     "successAlertBtn": "Aceptar"
 }

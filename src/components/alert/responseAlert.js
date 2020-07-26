@@ -2,7 +2,7 @@ import React from "react";
 import { MdInfo } from "react-icons/md";
 import "./responseAlert.scss";
 
-const ResponseAlert = ({ aceptar, display, txt, response, btnTxt }) => {
+const ResponseAlert = ({ aceptar, display, txtOk, txtFail, response, btnTxt }) => {
     return (
         <div className={display ? "responseAlert" : "noResponseAlert"}>
             <div className="alertBack"></div>
@@ -11,7 +11,7 @@ const ResponseAlert = ({ aceptar, display, txt, response, btnTxt }) => {
                     <div className="txtWrap">
                         <div className="inline">
                             <MdInfo className="icon" />
-                            <span className="txt">{txt}</span>
+                            <span className="txt">{response === "ok" ? txtOk : txtFail}</span>
                         </div>
                     </div>
                     <div className="btnWrap">

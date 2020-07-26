@@ -7,8 +7,8 @@ import myspaceCa from "../../json/myspaceCa.json";
 import myspaceEs from "../../json/myspaceEs.json";
 import { getUserBookings, getRoomById, deleteBooking } from "../../api/api";
 import { DeleteContext } from "../../context/deleteBooking";
-import "./myspace.scss";
 import { BookingContext } from "../../context/booking";
+import "./myspace.scss";
 
 const Myspace = () => {
     const { lang } = useContext(LangContext);

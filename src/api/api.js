@@ -119,3 +119,47 @@ export const deleteBooking = async (id) => {
     await obToDelete.destroy();
     return;
 };
+
+export const bookingMail = async (lang, mail, room, dayFormatted, dayEuropean, time) => {
+    try {
+        const send = await axios({
+            method: "post",
+            url: "https://taptime-server.herokuapp.com/api/mail/create",
+            data: {
+                lang,
+                mail,
+                room,
+                dayFormatted,
+                euroDate: dayEuropean,
+                time,
+                www: window.location.host,
+            },
+        });
+        return;
+    } catch (e) {
+        saveError(e, "Fallo al enviar mail de crear nueva reserva");
+        return;
+    }
+};
+
+export const deleteMail = async (lang, mail, room, dayFormatted, dayEuropean, time) => {
+    try {
+        const send = await axios({
+            method: "post",
+            url: "https://taptime-server.herokuapp.com/api/mail/delete",
+            data: {
+                lang,
+                mail,
+                room,
+                dayFormatted,
+                euroDate: dayEuropean,
+                time,
+                www: window.location.host,
+            },
+        });
+        return;
+    } catch (e) {
+        saveError(e, "Fallo al enviar mail de borrar reserva");
+        return;
+    }
+};
