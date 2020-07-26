@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "58fba4faa9da74bfdaad43daf81a1b45",
+    "revision": "b7ea091feb0db8ee23884d6c34802890",
     "url": "/react-booking/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-booking/static/css/2.19b7558e.chunk.css"
   },
   {
-    "revision": "26a0fb3ff214d1603b50",
-    "url": "/react-booking/static/css/main.51402bc1.chunk.css"
+    "revision": "86b21761d1741674bbfd",
+    "url": "/react-booking/static/css/main.9cc85bb3.chunk.css"
   },
   {
     "revision": "0ff886df0ac5ec72f85d",
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-booking/static/js/2.ecbd7ac3.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "26a0fb3ff214d1603b50",
+    "revision": "86b21761d1741674bbfd",
     "url": "/react-booking/static/js/main.226a81eb.chunk.js"
   },
   {
