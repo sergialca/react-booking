@@ -9,13 +9,14 @@ import "./navbar.scss";
 const Navbar = ({ content }) => {
     const [expanded, setExpanded] = useState(false);
     const { setMenu } = useContext(MenuContext);
-    const [selected, setSelected] = useState({ first: true, second: false });
+    const [selected, setSelected] = useState({ first: true, second: false, profile: false });
 
     const onExpand = () => {
         setExpanded((expanded) => !expanded);
     };
 
     const selectTab = (tab) => {
+        console.log("selectTab -> tab", tab);
         switch (tab) {
             case "1":
                 setSelected(() => ({ first: true, second: false }));
@@ -27,6 +28,10 @@ const Navbar = ({ content }) => {
                 setSelected(() => ({ first: false, second: true }));
                 setMenu(() => "Mis");
                 break;
+            case "profile":
+                setSelected(() => ({ first: false, second: false, profile: true }));
+                setMenu(() => "Profile");
+                break;
             default:
                 setSelected(() => ({ first: true, second: false }));
                 break;
@@ -35,11 +40,11 @@ const Navbar = ({ content }) => {
     };
 
     return (
-        <div className={expanded ? "navbar responsive" : "navbar"}>
+        <div className={expanded ? "navbar expand" : "navbar"}>
             <Link onClick={() => selectTab("1")} className="link brand" to="/dashboard">
                 {content.brand}
             </Link>
-            <div className={expanded ? "panel responsive" : "panel"}>
+            <div className={expanded ? "panel expand" : "panel"}>
                 <Link
                     onClick={() => selectTab("1")}
                     className={selected.first ? "link selected" : "link"}
@@ -58,8 +63,13 @@ const Navbar = ({ content }) => {
                     <LangDropdown />
                 </div>
             </div>
-            <div className="profile">
-                <GoPerson />
+            <div
+                onClick={() => selectTab("profile")}
+                className={selected.profile ? "profile selected" : "profile"}
+            >
+                <Link to="/profile">
+                    <GoPerson />
+                </Link>
             </div>
             <div className="icon" onClick={onExpand}>
                 <TiThMenu />

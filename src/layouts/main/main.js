@@ -33,6 +33,15 @@ const Layout = ({ children }) => {
                         : "My Bookings"
                 );
                 break;
+            case "Profile":
+                setTxtMenu(() =>
+                    lang === "ca"
+                        ? "Perfil d'usuari"
+                        : lang === "es"
+                        ? "Perfil de usuario"
+                        : "Profile"
+                );
+                break;
             default:
                 setTxtMenu(() => "Booking");
         }

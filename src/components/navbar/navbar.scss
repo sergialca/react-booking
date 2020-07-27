@@ -5,7 +5,7 @@ $navbar-background-color: #f2f3f3;
 .navbar {
     background-color: $navbar-background-color;
     overflow: hidden;
-    position: relative;
+    overflow-y: auto;
     display: block;
 
     .link.brand {
@@ -42,12 +42,21 @@ $navbar-background-color: #f2f3f3;
         padding: 6px 6px 0 6px;
         margin: 8px 0 0 46%;
         position: absolute;
+        color: #000;
+
+        a {
+            color: #000;
+        }
+
+        &.selected {
+            background-color: $primary-color;
+        }
     }
     .profile:hover {
         background-color: $hover-color;
     }
 
-    &.responsive {
+    &.expand {
         position: relative;
         width: 100%;
         .icon {
@@ -62,9 +71,7 @@ $navbar-background-color: #f2f3f3;
             text-align: left;
         }
         .profile {
-            float: right;
-            margin: 8px 47% 0 0;
-            position: relative;
+            top: 0;
         }
     }
     .panel {
@@ -90,7 +97,7 @@ $navbar-background-color: #f2f3f3;
             display: flex;
             justify-content: center;
         }
-        &.responsive {
+        &.expand {
             flex-basis: 100%;
             flex-grow: 1;
             display: flex;
@@ -123,7 +130,7 @@ $navbar-background-color: #f2f3f3;
         .link.brand {
             display: inline-block;
         }
-        &.responisve {
+        &.expand {
             display: relative;
         }
         .profile {
@@ -146,7 +153,7 @@ $navbar-background-color: #f2f3f3;
             .lang {
                 display: inline-block;
             }
-            &.responsive {
+            &.expand {
                 display: inline-block;
                 width: auto;
                 height: auto;

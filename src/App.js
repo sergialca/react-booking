@@ -6,6 +6,7 @@ import Register from "./pages/register/register";
 import Layout from "./layouts/main/main";
 import Dashboard from "./pages/dashboard/dashboard";
 import Myspace from "./pages/myspace/myspace";
+import Profile from "./pages/profile/profile";
 import AppRoute from "./components/appRoute/appRoute";
 import moment from "moment";
 import { UserContext } from "./context/user";
@@ -87,6 +88,7 @@ function App() {
                                         layout={Layout}
                                     />
                                     <AppRoute path="/myspace" component={Myspace} layout={Layout} />
+                                    <AppRoute path="/profile" component={Profile} layout={Layout} />
                                     <Redirect from="/" to={"/dashboard"} />
                                 </Switch>
                             </DeleteContext.Provider>
