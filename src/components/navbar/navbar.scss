@@ -131,7 +131,7 @@ $navbar-background-color: #f2f3f3;
             display: inline-block;
         }
         &.expand {
-            display: relative;
+            position: relative;
         }
         .profile {
             margin: 8px 10px 0 10px;
@@ -157,6 +157,9 @@ $navbar-background-color: #f2f3f3;
                 display: inline-block;
                 width: auto;
                 height: auto;
+                position: relative;
+                flex-basis: 25%;
+                flex-grow: 0.04;
                 .link {
                     display: inline-block;
                 }
