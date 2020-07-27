@@ -32,6 +32,7 @@ const Dashboard = (props) => {
     const [display, setDisplay] = useState({
         timeAlert: false,
         loading: false,
+        loadingBtn: false,
         responseAlert: false,
         response: "ok",
     });
@@ -184,6 +185,7 @@ const Dashboard = (props) => {
     }, [filters.select, filters.dayPicker]);
 
     const aceptarTimeAlert = async () => {
+        setDisplay((prev) => ({ ...prev, loadingBtn: true }));
         const newBo = await newBooking(
             user.id,
             booking.roomId,
@@ -209,6 +211,7 @@ const Dashboard = (props) => {
                 ...dis,
                 timeAlert: false,
                 responseAlert: true,
+                loadingBtn: false,
                 response: "ok",
             }));
         } else
@@ -216,6 +219,7 @@ const Dashboard = (props) => {
                 ...dis,
                 timeAlert: false,
                 responseAlert: true,
+                loadingBtn: false,
                 response: "fail",
             }));
     };
@@ -254,6 +258,7 @@ const Dashboard = (props) => {
                 txt={content}
                 aceptar={aceptarTimeAlert}
                 cancelar={cancelar}
+                loadingBtn={display.loadingBtn}
             />
             <div className="filters">
                 <div className="labelInput">

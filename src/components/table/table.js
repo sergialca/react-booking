@@ -1,6 +1,5 @@
 import React from "react";
 import Row from "../row/row";
-
 import "./table.scss";
 
 const Table = ({ header, data, btnTxt, setDisplay }) => {

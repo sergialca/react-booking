@@ -8,7 +8,7 @@
     border-collapse: collapse;
     background: white;
     border-radius: 10px;
-    overflow-y: auto;
+    overflow-x: auto;
     width: 100%;
     margin: 0 auto;
     position: relative;
@@ -19,7 +19,7 @@
     .table {
         //font-size: $desktop-font;
         width: 100%;
-        overflow-y: hidden;
+        overflow-x: hidden;
         .trHeader {
             height: 60px;
         }

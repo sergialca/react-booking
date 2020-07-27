@@ -3,9 +3,10 @@ import { BookingContext } from "../../context/booking";
 import { MdInfo } from "react-icons/md";
 import { LangContext } from "../../context/lang";
 import { FiltersContext } from "../../context/filters";
+import SubmitButtonAlert from "../submitButton/submitButtonAlert";
 import "./timeAlert.scss";
 
-const TimeAlert = ({ aceptar, display, cancelar, txt }) => {
+const TimeAlert = ({ aceptar, display, cancelar, txt, loadingBtn }) => {
     const { booking } = useContext(BookingContext);
     const { filters } = useContext(FiltersContext);
     const { lang } = useContext(LangContext);
@@ -30,9 +31,11 @@ const TimeAlert = ({ aceptar, display, cancelar, txt }) => {
                         </div>
                     </div>
                     <div className="btnWrap">
-                        <button className="btn aceptar" onClick={() => aceptar()}>
-                            {txt.timeAlertOk}
-                        </button>
+                        <SubmitButtonAlert
+                            txt={txt.timeAlertOk}
+                            loading={loadingBtn}
+                            aceptar={aceptar}
+                        />
                         <button className="btnCancel" onClick={() => cancelar()}>
                             {txt.timeAlertBad}
                         </button>

@@ -115,7 +115,6 @@ export const deleteBooking = async (id) => {
     const Booking = Parse.Object.extend("Booking");
     const query = new Parse.Query(Booking);
     let obToDelete = await query.get(id);
-    console.log("deleteBooking -> obToDelete", obToDelete);
     await obToDelete.destroy();
     return;
 };
@@ -142,7 +141,7 @@ export const bookingMail = async (lang, mail, room, dayFormatted, dayEuropean, t
     }
 };
 
-export const deleteMail = async (lang, mail, room, dayFormatted, dayEuropean, time) => {
+export const deleteMail = async (lang, mail, room, day, euroDate, time) => {
     try {
         const send = await axios({
             method: "post",
@@ -151,8 +150,8 @@ export const deleteMail = async (lang, mail, room, dayFormatted, dayEuropean, ti
                 lang,
                 mail,
                 room,
-                dayFormatted,
-                euroDate: dayEuropean,
+                day,
+                euroDate,
                 time,
                 www: window.location.host,
             },

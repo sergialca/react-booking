@@ -5,21 +5,22 @@ import DeleteAlert from "../../components/alert/deleteAlert";
 import ClipLoader from "react-spinners/ClipLoader";
 import myspaceCa from "../../json/myspaceCa.json";
 import myspaceEs from "../../json/myspaceEs.json";
-import { getUserBookings, getRoomById, deleteBooking } from "../../api/api";
+import { getUserBookings, getRoomById, deleteBooking, deleteMail } from "../../api/api";
 import { DeleteContext } from "../../context/deleteBooking";
 import { BookingContext } from "../../context/booking";
+import { UserContext } from "../../context/user";
 import "./myspace.scss";
 
 const Myspace = () => {
     const { lang } = useContext(LangContext);
     const { deleteData, setDeleteData } = useContext(DeleteContext);
     const { setBooking } = useContext(BookingContext);
+    const { user } = useContext(UserContext);
     const [content, setContent] = useState("es");
     const [display, setDisplay] = useState({
         deleteAlert: false,
         loading: false,
-        responseAlert: false,
-        response: "ok",
+        loadingBtn: false,
     });
     const [tableCol, setTableCol] = useState([
         {
@@ -149,11 +150,20 @@ const Myspace = () => {
     }, []);
 
     const acceptDeleteAlert = async () => {
+        setDisplay((dis) => ({ ...dis, loadingBtn: true }));
         await deleteBooking(deleteData.id);
         setDeleteData((prev) => ({
             ...prev,
             deleted: true,
         }));
+        await deleteMail(
+            lang,
+            user.mail,
+            deleteData.room,
+            deleteData.day,
+            deleteData.eurodate,
+            deleteData.time
+        );
         setBooking(() => ({
             dayFormatted: deleteData.day,
             room: deleteData.room,
@@ -162,7 +172,7 @@ const Myspace = () => {
             timeId: deleteData.timeId,
             booked: false,
         }));
-        setDisplay((dis) => ({ ...dis, deleteAlert: false, responseAlert: true }));
+        setDisplay((dis) => ({ ...dis, deleteAlert: false, loadingBtn: false }));
     };
 
     const cancel = () => {
@@ -176,6 +186,7 @@ const Myspace = () => {
                 accept={acceptDeleteAlert}
                 cancel={cancel}
                 txt={content}
+                loadingBtn={display.loadingBtn}
             />
             {display.loading ? (
                 <ClipLoader color={"#00d6fc"} size={50} />

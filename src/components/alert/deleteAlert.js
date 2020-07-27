@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { MdInfo } from "react-icons/md";
 import { LangContext } from "../../context/lang";
-import "./deleteAlert.scss";
 import { DeleteContext } from "../../context/deleteBooking";
+import SubmitButtonAlert from "../submitButton/submitButtonAlert";
+import "./deleteAlert.scss";
 
-const DeleteAlert = ({ accept, display, cancel, txt }) => {
+const DeleteAlert = ({ accept, display, cancel, txt, loadingBtn }) => {
     const { deleteData } = useContext(DeleteContext);
     const { lang } = useContext(LangContext);
 
@@ -26,9 +27,7 @@ const DeleteAlert = ({ accept, display, cancel, txt }) => {
                         </div>
                     </div>
                     <div className="btnWrap">
-                        <button className="btn aceptar" onClick={() => accept()}>
-                            {txt.accept}
-                        </button>
+                        <SubmitButtonAlert txt={txt.accept} loading={loadingBtn} aceptar={accept} />
                         <button className="btnCancel" onClick={() => cancel()}>
                             {txt.cancel}
                         </button>
