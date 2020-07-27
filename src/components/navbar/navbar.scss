@@ -126,6 +126,11 @@ $navbar-background-color: #f2f3f3;
         &.responisve {
             display: relative;
         }
+        .profile {
+            margin: 8px 10px 0 10px;
+            position: relative;
+            float: none;
+        }
         .panel {
             display: flex;
             width: auto;
