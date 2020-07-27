@@ -6,6 +6,7 @@ $navbar-background-color: #f2f3f3;
     background-color: $navbar-background-color;
     overflow: hidden;
     position: relative;
+    display: block;
 
     .link.brand {
         float: left;
@@ -31,6 +32,20 @@ $navbar-background-color: #f2f3f3;
         padding: 6px 6px 0 6px;
         margin: 8px 10px 0 0;
     }
+    .profile {
+        float: right;
+        display: block;
+        font-size: 22px;
+        cursor: pointer;
+        background-color: #ccc;
+        border-radius: 250px;
+        padding: 6px 6px 0 6px;
+        margin: 8px 0 0 46%;
+        position: absolute;
+    }
+    .profile:hover {
+        background-color: $hover-color;
+    }
 
     &.responsive {
         position: relative;
@@ -45,6 +60,11 @@ $navbar-background-color: #f2f3f3;
             float: none;
             display: inline-block;
             text-align: left;
+        }
+        .profile {
+            float: right;
+            margin: 8px 47% 0 0;
+            position: relative;
         }
     }
     .panel {
@@ -90,8 +110,15 @@ $navbar-background-color: #f2f3f3;
 
 @media (min-width: 768px) {
     .navbar {
+        display: flex;
+        align-items: flex-start;
         .icon {
             display: none;
+        }
+        .profile {
+            margin: 8px 10px 0 10px;
+            position: relative;
+            float: none;
         }
         .link.brand {
             display: inline-block;
@@ -102,6 +129,7 @@ $navbar-background-color: #f2f3f3;
         .panel {
             display: flex;
             width: auto;
+
             .link {
                 color: #333;
                 text-align: center;

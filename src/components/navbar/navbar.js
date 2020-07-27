@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { TiThMenu } from "react-icons/ti";
+import { GoPerson } from "react-icons/go";
 import LangDropdown from "../langDropdown/langDropdown";
 import { MenuContext } from "../../context/menu";
 import "./navbar.scss";
@@ -56,6 +57,9 @@ const Navbar = ({ content }) => {
                 <div className="lang">
                     <LangDropdown />
                 </div>
+            </div>
+            <div className="profile">
+                <GoPerson />
             </div>
             <div className="icon" onClick={onExpand}>
                 <TiThMenu />
