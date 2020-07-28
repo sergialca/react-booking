@@ -161,7 +161,7 @@ const Myspace = () => {
             user.mail,
             deleteData.room,
             deleteData.day,
-            deleteData.eurodate,
+            deleteData.euroDate,
             deleteData.time
         );
         setBooking(() => ({

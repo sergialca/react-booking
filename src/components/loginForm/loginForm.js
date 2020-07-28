@@ -61,13 +61,13 @@ const LoginForm = ({ content, history }) => {
         const psw = validPsw();
         if (mail && psw) {
             Parse.User.logIn(account.mail, account.psw)
-                .then((user) => {
+                .then((newUser) => {
                     setUser({
                         logged: true,
-                        name: user.name,
-                        email: user.mail,
-                        token: user.sessionToken,
-                        id: user.objectId,
+                        name: newUser.attributes.name,
+                        mail: newUser.attributes.email,
+                        token: newUser.attributes.sessionToken,
+                        id: newUser.attributes.objectId,
                     });
                     history("dashboard");
                 })

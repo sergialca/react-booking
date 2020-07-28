@@ -16,13 +16,10 @@ const Navbar = ({ content }) => {
     };
 
     const selectTab = (tab) => {
-        console.log("selectTab -> tab", tab);
         switch (tab) {
             case "1":
                 setSelected(() => ({ first: true, second: false }));
-                //FALTA PULIR
                 setMenu(() => "Reservar");
-                //
                 break;
             case "2":
                 setSelected(() => ({ first: false, second: true }));

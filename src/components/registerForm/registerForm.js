@@ -123,13 +123,12 @@ const RegisterForm = ({ showAlert, content }) => {
         const rePsw = validRePsw();
         if (mail && psw && rePsw && name) {
             const user = new Parse.User();
-            user.set("username", account.name);
+            user.set("username", account.mail);
             user.set("email", account.mail);
             user.set("password", account.psw);
             user.set("name", account.name);
             user.signUp()
                 .then((user) => {
-                    console.log("User signed up", user);
                     setError((error) => ({ ...error, submit: content.submitOk }));
                     mailVerification();
                 })

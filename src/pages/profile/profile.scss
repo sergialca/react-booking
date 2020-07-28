@@ -1,0 +1,37 @@
+@import "../../styles/font.scss";
+
+.profileCont {
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+    align-items: center;
+    font-size: $mobile-font;
+    .userMail {
+        display: flex;
+        flex-wrap: nowrap;
+        width: 200px;
+        .mail {
+            margin-right: 20px;
+        }
+    }
+    .logout {
+        @include btn(200px, $error-color);
+        color: #fff;
+        margin: 15px 0 0 0;
+    }
+
+    .logout:hover {
+        @include btnHover($fail-back);
+    }
+    .logout:focus {
+        @include btnFocus($error-color);
+    }
+    .logout:active {
+        @include btnActive($fail-back);
+    }
+}
+@media (min-width: 768px) {
+    .profileCont {
+        font-size: $desktop-font;
+    }
+}

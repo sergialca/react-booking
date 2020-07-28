@@ -162,3 +162,8 @@ export const deleteMail = async (lang, mail, room, day, euroDate, time) => {
         return;
     }
 };
+
+export const logout = async () => {
+    const noUser = await Parse.User.logOut();
+    return;
+};
