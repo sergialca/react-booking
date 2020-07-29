@@ -24,8 +24,6 @@ const Profile = () => {
         setUser((prev) => ({ ...prev, logged: false }));
     };
 
-    useEffect(() => {}, [user]);
-
     return (
         <div className="profileCont">
             <div className="userMail">
