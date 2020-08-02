@@ -137,7 +137,7 @@ export const bookingMail = async (lang, mail, room, dayFormatted, dayEuropean, t
     try {
         const send = await axios({
             method: "post",
-            url: "http://server.taptime.info/api/mail/create",
+            url: "https://taptime-server.herokuapp.com/api/mail/create",
             data: {
                 lang,
                 mail,
@@ -164,7 +164,7 @@ export const deleteMail = async (lang, mail, room, day, euroDate, time) => {
     try {
         const send = await axios({
             method: "post",
-            url: "http://server.taptime.info/api/mail/delete",
+            url: "https://taptime-server.herokuapp.com/api/mail/delete",
             data: {
                 lang,
                 mail,
