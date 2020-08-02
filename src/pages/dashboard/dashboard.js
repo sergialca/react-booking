@@ -199,7 +199,7 @@ const Dashboard = (props) => {
                 ...prev,
                 booked: true,
             }));
-            await bookingMail(
+            bookingMail(
                 lang,
                 user.mail,
                 booking.room,

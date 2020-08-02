@@ -27,7 +27,7 @@ const Profile = () => {
     return (
         <div className="profileCont">
             <div className="userMail">
-                <span className="mail">Mail:</span>
+                <span className="mail">Mail: </span>
                 <span>{user.mail}</span>
             </div>
             <button className="logout" onClick={() => onLogout()}>

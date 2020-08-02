@@ -9,16 +9,30 @@ const normalHeaders = {
     "Content-Type": "application/json",
 };
 const saveError = async (e, description) => {
-    await axios({
-        method: "post",
-        url: `${url}/classes/Errors`,
-        headers: normalHeaders,
-        data: {
-            code: e.response.data.code,
-            error: e.response.data.error,
-            description,
-        },
-    });
+    if (e.mail) {
+        await axios({
+            method: "post",
+            url: `${url}/classes/Errors`,
+            headers: normalHeaders,
+            data: {
+                code: 401,
+                error: "Network Error",
+                description,
+            },
+        });
+    } else {
+        await axios({
+            method: "post",
+            url: `${url}/classes/Errors`,
+            headers: normalHeaders,
+            data: {
+                code: e.response.data.code,
+                error: e.response.data.error,
+                description,
+            },
+        });
+    }
+
     return;
 };
 
@@ -123,7 +137,7 @@ export const bookingMail = async (lang, mail, room, dayFormatted, dayEuropean, t
     try {
         const send = await axios({
             method: "post",
-            url: "https://taptime-server.herokuapp.com/api/mail/create",
+            url: "http://server.taptime.info/api/mail/create",
             data: {
                 lang,
                 mail,
@@ -136,7 +150,12 @@ export const bookingMail = async (lang, mail, room, dayFormatted, dayEuropean, t
         });
         return;
     } catch (e) {
-        saveError(e, "Fallo al enviar mail de crear nueva reserva");
+        if (e.response) {
+            saveError(e, "Fallo al enviar mail de crear nueva reserva");
+        } else {
+            e.mail = true;
+            saveError(e, "Fallo al enviar mail de crear nueva reserva");
+        }
         return;
     }
 };
@@ -145,7 +164,7 @@ export const deleteMail = async (lang, mail, room, day, euroDate, time) => {
     try {
         const send = await axios({
             method: "post",
-            url: "https://taptime-server.herokuapp.com/api/mail/delete",
+            url: "http://server.taptime.info/api/mail/delete",
             data: {
                 lang,
                 mail,
@@ -158,7 +177,12 @@ export const deleteMail = async (lang, mail, room, day, euroDate, time) => {
         });
         return;
     } catch (e) {
-        saveError(e, "Fallo al enviar mail de borrar reserva");
+        if (e.response) {
+            saveError(e, "Fallo al enviar mail de borrar reserva");
+        } else {
+            e.mail = true;
+            saveError(e, "Fallo al enviar mail de borrar reserva");
+        }
         return;
     }
 };

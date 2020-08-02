@@ -156,7 +156,7 @@ const Myspace = () => {
             ...prev,
             deleted: true,
         }));
-        await deleteMail(
+        deleteMail(
             lang,
             user.mail,
             deleteData.room,
