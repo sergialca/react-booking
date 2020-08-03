@@ -69,7 +69,7 @@ const LoginForm = ({ content, history }) => {
                         token: newUser.attributes.sessionToken,
                         id: newUser.attributes.objectId,
                     });
-                    history("dashboard");
+                    history("");
                 })
                 .catch((error) => {
                     error.code === 205

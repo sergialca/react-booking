@@ -5,12 +5,14 @@ import Alert from "../../components/alert/alert";
 import TransparentNav from "../../components/transparentNav/transparentNav";
 import LangDropdown from "../../components/langDropdown/langDropdown";
 import { LangContext } from "../../context/lang";
+import { UserContext } from "../../context/user";
 import registerCa from "../../json/registerCa.json";
 import registerEs from "../../json/registerEs.json";
 import "./register.scss";
 
 const Register = ({ history }) => {
     const { lang } = useContext(LangContext);
+    const { user } = useContext(UserContext);
     const [display, setDisplay] = useState(false);
     const [content, setContent] = useState("singup");
 
@@ -18,6 +20,10 @@ const Register = ({ history }) => {
         if (lang === "ca") setContent(() => registerCa);
         else if (lang === "es") setContent(() => registerEs);
     }, [lang]);
+
+    useEffect(() => {
+        if (user.logged) history.push(`/`);
+    }, []);
 
     const changeDisplay = () => {
         setDisplay(!display);

@@ -45,7 +45,7 @@ const Navbar = ({ content }) => {
                 <Link
                     onClick={() => selectTab("1")}
                     className={selected.first ? "link selected" : "link"}
-                    to="/dashboard"
+                    to="/"
                 >
                     {content.booking}
                 </Link>

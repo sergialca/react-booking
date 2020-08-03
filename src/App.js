@@ -83,13 +83,14 @@ function App() {
                                     <Route path="/login" component={Login} />
                                     <Route path="/signup" component={Register} />
                                     <AppRoute
-                                        path="/dashboard"
+                                        path="/"
+                                        exact
                                         component={Dashboard}
                                         layout={Layout}
                                     />
                                     <AppRoute path="/myspace" component={Myspace} layout={Layout} />
                                     <AppRoute path="/profile" component={Profile} layout={Layout} />
-                                    <Redirect from="/" to={"/dashboard"} />
+                                    <Redirect to="/" />
                                 </Switch>
                             </DeleteContext.Provider>
                         </BookingContext.Provider>
