@@ -60,14 +60,11 @@ const Navbar = ({ content }) => {
                     <LangDropdown />
                 </div>
             </div>
-            <div
-                onClick={() => selectTab("profile")}
-                className={selected.profile ? "profile selected" : "profile"}
-            >
-                <Link to="/profile">
+            <Link to="/profile" onClick={() => selectTab("profile")}>
+                <div className={selected.profile ? "profile selected" : "profile"}>
                     <GoPerson />
-                </Link>
-            </div>
+                </div>
+            </Link>
             <div className="icon" onClick={onExpand}>
                 <TiThMenu />
             </div>
