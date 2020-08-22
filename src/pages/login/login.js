@@ -7,6 +7,7 @@ import { LangContext } from "../../context/lang";
 import { UserContext } from "../../context/user";
 import loginEs from "../../json/loginEs.json";
 import loginCa from "../../json/loginCa.json";
+import loginEn from "../../json/loginEn.json";
 import "./login.scss";
 
 const Login = ({ history }) => {
@@ -17,6 +18,7 @@ const Login = ({ history }) => {
     useEffect(() => {
         if (lang === "ca") setContent(() => loginCa);
         else if (lang === "es") setContent(() => loginEs);
+        else if (lang === "en") setContent(() => loginEn);
     }, [lang]);
 
     const changeRoute = (route) => {

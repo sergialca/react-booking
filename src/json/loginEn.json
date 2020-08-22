@@ -1,0 +1,16 @@
+{
+    "pswRule": "The password must have at least 8 characters, an uppercase, a lowercase and a number.",
+    "accept": "Accept",
+    "pswRequired": "Password is required",
+    "pswPlaceholder": "Password",
+    "loginTitle": "Log in",
+    "signup": "Sign up",
+    "submitBtn": "Log in",
+    "submitError": "Log in error",
+    "submitErrorVerify": "Mail not verified",
+    "recoveryTxt": "Recover",
+    "recoveryA": "user and password",
+    "mailPlaceholder": "Mail",
+    "mailError": "Invalid mail",
+    "mailRequired": "Mail is required"
+}

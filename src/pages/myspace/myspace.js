@@ -5,7 +5,8 @@ import DeleteAlert from "../../components/alert/deleteAlert";
 import ClipLoader from "react-spinners/ClipLoader";
 import myspaceCa from "../../json/myspaceCa.json";
 import myspaceEs from "../../json/myspaceEs.json";
-import { getUserBookings, getRoomById, deleteBooking, deleteMail } from "../../api/api";
+import myspaceEn from "../../json/myspaceEn.json";
+import { getUserBookings, getRoomById, deleteBooking } from "../../api/api";
 import { DeleteContext } from "../../context/deleteBooking";
 import { BookingContext } from "../../context/booking";
 import { UserContext } from "../../context/user";
@@ -35,6 +36,8 @@ const Myspace = () => {
             setContent(() => myspaceCa);
         } else if (lang === "es") {
             setContent(() => myspaceEs);
+        } else if (lang === "en") {
+            setContent(() => myspaceEn);
         }
         getColumns();
     }, [lang]);
@@ -80,7 +83,7 @@ const Myspace = () => {
                         unique: "h2ca",
                     },
                     {
-                        header: "hora",
+                        header: "Hora",
                         id: "time",
                         unique: "h3ca",
                     },
@@ -104,7 +107,7 @@ const Myspace = () => {
                         unique: "h2es",
                     },
                     {
-                        header: "hora",
+                        header: "Hora",
                         id: "time",
                         unique: "h3es",
                     },
@@ -123,12 +126,12 @@ const Myspace = () => {
                         unique: "h1en",
                     },
                     {
-                        header: "day",
+                        header: "Day",
                         id: "day",
                         unique: "h2en",
                     },
                     {
-                        header: "time",
+                        header: "Time",
                         id: "time",
                         unique: "h3en",
                     },
@@ -156,14 +159,6 @@ const Myspace = () => {
             ...prev,
             deleted: true,
         }));
-        deleteMail(
-            lang,
-            user.mail,
-            deleteData.room,
-            deleteData.day,
-            deleteData.euroDate,
-            deleteData.time
-        );
         setBooking(() => ({
             dayFormatted: deleteData.day,
             room: deleteData.room,

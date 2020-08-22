@@ -25,7 +25,7 @@ const TimeAlert = ({ aceptar, display, cancelar, txt, loadingBtn }) => {
                                     ? filters.dayEuropean
                                     : lang === "es"
                                     ? filters.dayEuropean
-                                    : filters.formattedDay}{" "}
+                                    : filters.dayFormatted}{" "}
                                 {`${txt.timeAlertOf} ${booking.time}?`}
                             </span>
                         </div>

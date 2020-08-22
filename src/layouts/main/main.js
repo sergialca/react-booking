@@ -4,6 +4,7 @@ import { MenuContext } from "../../context/menu";
 import { LangContext } from "../../context/lang";
 import navbarCa from "../../json/navbarCa.json";
 import navbarEs from "../../json/navbarEs.json";
+import navbarEn from "../../json/navbarEn.json";
 import "./main.scss";
 
 const Layout = ({ children }) => {
@@ -15,6 +16,7 @@ const Layout = ({ children }) => {
     useEffect(() => {
         if (lang === "ca") setContent(() => navbarCa);
         else if (lang === "es") setContent(() => navbarEs);
+        else if (lang === "en") setContent(() => navbarEn);
     }, [lang]);
 
     useEffect(() => {

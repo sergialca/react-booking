@@ -47,11 +47,17 @@
     .langDrop:nth-child(1) {
         border-bottom: 1px solid #ccc;
     }
+    .langDrop:nth-child(2) {
+        border-bottom: 1px solid #ccc;
+    }
     .langDrop:nth-child(1):hover {
         background-color: $primary-color;
         border-radius: 10px 10px 0px 0px;
     }
     .langDrop:nth-child(2):hover {
+        background-color: $primary-color;
+    }
+    .langDrop:nth-child(3):hover {
         background-color: $primary-color;
         border-radius: 0 0 10px 10px;
     }

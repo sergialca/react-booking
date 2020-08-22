@@ -8,6 +8,7 @@ import { LangContext } from "../../context/lang";
 import { UserContext } from "../../context/user";
 import registerCa from "../../json/registerCa.json";
 import registerEs from "../../json/registerEs.json";
+import registerEn from "../../json/registerEn.json";
 import "./register.scss";
 
 const Register = ({ history }) => {
@@ -19,6 +20,7 @@ const Register = ({ history }) => {
     useEffect(() => {
         if (lang === "ca") setContent(() => registerCa);
         else if (lang === "es") setContent(() => registerEs);
+        else if (lang === "en") setContent(() => registerEn);
     }, [lang]);
 
     useEffect(() => {

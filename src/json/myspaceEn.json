@@ -1,0 +1,10 @@
+{
+    "title": "My bookings",
+    "btnTxt": "Delete",
+    "accept": "Accept",
+    "cancel": "Cancel",
+    "deleteSure": "Delete booking of",
+    "deleteThe": "the",
+    "deleteAt": "from",
+    "empty": "There isn't any booking"
+}

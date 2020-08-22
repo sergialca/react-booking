@@ -11,6 +11,8 @@ const LangDropdown = () => {
             setLang("ca");
         } else if (la === "es") {
             setLang("es");
+        } else if (la === "en") {
+            setLang("en");
         }
         setShow((show) => !show);
     };
@@ -31,6 +33,9 @@ const LangDropdown = () => {
                 </div>
                 <div className="langDrop" onClick={() => selectLang("ca")}>
                     CAT
+                </div>
+                <div className="langDrop" onClick={() => selectLang("en")}>
+                    ENG
                 </div>
             </div>
         </div>

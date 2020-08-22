@@ -1,0 +1,16 @@
+{
+    "title": "Available bookings",
+    "complete": "There isn't available hours",
+    "day": "Day",
+    "room": "Room",
+    "all": "Totes",
+    "close": "Closed on Sundays",
+    "timeAlertSure": "Are you sure you want to book",
+    "timeAlertDay": "the",
+    "timeAlertOf": "from",
+    "timeAlertOk": "Accept",
+    "timeAlertBad": "Cancel",
+    "successAlertOkTxt": "Booked successfully",
+    "successAlertFailTxt": "A problem occurred",
+    "successAlertBtn": "Accept"
+}

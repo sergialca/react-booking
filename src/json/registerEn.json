@@ -1,0 +1,22 @@
+{
+    "mailPlaceholder": "Mail",
+    "mailError": "Mail not accepted",
+    "mailRequired": "Mail is required",
+    "nameError": "Name not accepted",
+    "namePlaceholder": "Name",
+    "nameRequired": "Name is required",
+    "pswPlaceholder": "Password",
+    "pswRequired": "Password is required",
+    "rePswPlaceholder": "Repet password",
+    "rePswError": "Passwords don't match",
+    "rePswRequired": "Required field",
+    "pswRule": "The password must have at least 8 characters, an uppercase, a lowercase and a number.",
+    "accept": "Accept",
+    "loginTitle": "Log in",
+    "signupTitle": "Sign up",
+    "signup": "Sign up",
+    "submitBtn": "Sign up",
+    "submitError": "Sign up process fail",
+    "submitOk": "Sending confirmation mail",
+    "back": "Go back"
+}

@@ -3,6 +3,7 @@ import { UserContext } from "../../context/user";
 import { LangContext } from "../../context/lang";
 import profileEs from "../../json/profileEs.json";
 import profileCa from "../../json/profileCa.json";
+import profileEn from "../../json/profileEn.json";
 import { logout } from "../../api/api";
 import "./profile.scss";
 
@@ -16,6 +17,8 @@ const Profile = () => {
             setContent(() => profileCa);
         } else if (lang === "es") {
             setContent(() => profileEs);
+        } else if (lang === "en") {
+            setContent(() => profileEn);
         }
     }, [lang]);
 

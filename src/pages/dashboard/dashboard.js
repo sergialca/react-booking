@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import dashboardCa from "../../json/dashboardCa.json";
 import dashboardEs from "../../json/dashboardEs.json";
+import dashboardEn from "../../json/dashboardEn.json";
 import Room from "../../components/room/room";
 import Select from "react-select";
 import TimeAlert from "../../components/alert/timeAlert";
@@ -45,6 +46,8 @@ const Dashboard = (props) => {
             return dashboardCa;
         } else if (lang === "es") {
             return dashboardEs;
+        } else if (lang === "en") {
+            return dashboardEn;
         }
     };
     const [content, setContent] = useState(selectLang());
@@ -54,6 +57,8 @@ const Dashboard = (props) => {
             setContent(() => dashboardCa);
         } else if (lang === "es") {
             setContent(() => dashboardEs);
+        } else if (lang === "en") {
+            setContent(() => dashboardEn);
         }
         changeLangSelect();
     }, [lang]);
