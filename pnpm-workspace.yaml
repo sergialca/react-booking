@@ -1,0 +1,7 @@
+nodeLinker: hoisted
+allowBuilds:
+  core-js: false
+  core-js-pure: false
+  es5-ext: false
+  fsevents: false
+  node-sass: false
