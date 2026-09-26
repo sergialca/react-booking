@@ -47,7 +47,16 @@ const Myspace = () => {
             ...prev,
             loading: true,
         }));
-        const res = await getUserBookings();
+        let res;
+        try {
+            res = await getUserBookings();
+        } catch (e) {
+            setDisplay((prev) => ({
+                ...prev,
+                loading: false,
+            }));
+            return;
+        }
         let ob = {};
         for (let i = 0; i < res.length; i++) {
             const roomName = await getRoomById(res[i].attributes.room.id);

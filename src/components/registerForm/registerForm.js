@@ -4,7 +4,7 @@ import { BsLockFill, BsPersonFill } from "react-icons/bs";
 import SubmitButton from "../submitButton/submitButton";
 import Input from "../input/input";
 import FormError from "../formError/formError";
-import Parse from "parse";
+import { requireSupabase } from "../../supabaseClient";
 import "./registerForm.scss";
 
 const RegisterForm = ({ showAlert, content }) => {
@@ -82,37 +82,6 @@ const RegisterForm = ({ showAlert, content }) => {
         }
     };
 
-    const mailVerification = () => {
-        const https = require("https");
-        const params = { email: account.mail };
-        const options = {
-            hostname: "https://parseapi.back4app.com",
-            path: "/verificationEmailRequest",
-            method: "POST",
-            headers: {
-                "X-Parse-Application-Id": "kn0fKAr5wiPrx2FEjeIlejuE9s8AjEHaF2vY9zj9",
-                "X-Parse-REST-API-Key": "od4o0RAtgQzAICZY1LdEiVrItZN2trnrtcQX4hve",
-                "Content-Type": "application/json",
-            },
-        };
-
-        const req = https.request(options, (res) => {
-            res.setEncoding("utf8");
-            res.on("data", (chunk) => {
-                console.log(`BODY: ${chunk}`);
-            });
-            res.on("end", () => {
-                console.log("No more data in response.");
-            });
-        });
-
-        req.on("error", (e) => {
-            console.error(`Problem with request: ${e.message}`);
-        });
-        req.write(params);
-        req.end();
-    };
-
     const signIn = (e) => {
         e.preventDefault();
         setLoading(true);
@@ -122,18 +91,27 @@ const RegisterForm = ({ showAlert, content }) => {
         const psw = validPsw();
         const rePsw = validRePsw();
         if (mail && psw && rePsw && name) {
-            const user = new Parse.User();
-            user.set("username", account.mail);
-            user.set("email", account.mail);
-            user.set("password", account.psw);
-            user.set("name", account.name);
-            user.signUp()
-                .then((user) => {
-                    setError((error) => ({ ...error, submit: content.submitOk }));
-                    mailVerification();
+            Promise.resolve()
+                .then(() => {
+                    const client = requireSupabase();
+                    return client.auth
+                        .signUp({
+                            email: account.mail,
+                            password: account.psw,
+                            options: { data: { name: account.name } },
+                        })
+                        .then(async (result) => ({ client, result }));
                 })
-                .catch((error) => {
-                    setError((error) => ({ ...error, submit: content.submitError }));
+                .then(async ({ client, result }) => {
+                    if (result.error) {
+                        setError((prev) => ({ ...prev, submit: content.submitError }));
+                        return;
+                    }
+                    if (result.data.session) await client.auth.signOut();
+                    setError((prev) => ({ ...prev, submit: content.submitOk }));
+                })
+                .catch(() => {
+                    setError((prev) => ({ ...prev, submit: content.submitError }));
                 })
                 .finally(() => setLoading(false));
         } else setLoading(false);

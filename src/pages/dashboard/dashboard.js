@@ -74,7 +74,16 @@ const Dashboard = (props) => {
             ...prev,
             loading: true,
         }));
-        const resRooms = await getRooms();
+        let resRooms;
+        try {
+            resRooms = await getRooms();
+        } catch (e) {
+            setDisplay((prev) => ({
+                ...prev,
+                loading: false,
+            }));
+            return;
+        }
         for (let i = 0; i < resRooms.length; i++) {
             const bo = await getBooking(filters.dayFormatted, resRooms[i].id);
             if (bo.length > 0) {
@@ -108,7 +117,16 @@ const Dashboard = (props) => {
             ...prev,
             loading: true,
         }));
-        const resRooms = await getRoom(filters.room);
+        let resRooms;
+        try {
+            resRooms = await getRoom(filters.room);
+        } catch (e) {
+            setDisplay((prev) => ({
+                ...prev,
+                loading: false,
+            }));
+            return;
+        }
         const bo = await getBooking(filters.dayFormatted, resRooms[0].id);
         if (bo.length > 0) {
             const reNew = bo.map((t) => {
@@ -148,7 +166,12 @@ const Dashboard = (props) => {
     };
 
     const selectableRooms = async () => {
-        const results = await getRooms();
+        let results;
+        try {
+            results = await getRooms();
+        } catch (e) {
+            return;
+        }
         for (let i = 0; i < results.length; i++) {
             if (i === 0) {
                 setSelectable(() => [{ value: results[i].id, label: results[i].attributes.name }]);
@@ -287,6 +310,7 @@ const Dashboard = (props) => {
                         numberOfMonths={1}
                         displayFormat={"DD/MM/YYYY"}
                         readOnly={true}
+                        keepFocusOnInput
                         firstDayOfWeek={1}
                         isOutsideRange={(day) =>
                             day.isBefore(moment().hours(0)) || day.isAfter(moment().add(7, "days"))

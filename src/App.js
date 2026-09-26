@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import Parse from "parse";
+import { supabase } from "./supabaseClient";
 import Login from "./pages/login/login";
 import Register from "./pages/register/register";
 import Layout from "./layouts/main/main";
@@ -38,24 +38,29 @@ function App() {
         timeId: "t0",
         booked: false,
     });
-    const appId = "kn0fKAr5wiPrx2FEjeIlejuE9s8AjEHaF2vY9zj9";
+    const [user, setUser] = useState({ logged: false });
 
-    const getUserLoged = () => {
-        const session = JSON.parse(localStorage.getItem(`Parse/${appId}/currentUser`));
-        if (session) {
-            return session.sessionToken
-                ? {
-                      logged: true,
-                      name: session.name,
-                      mail: session.email,
-                      token: session.sessionToken,
-                      id: session.objectId,
-                  }
-                : { logged: false };
-        } else return { logged: false };
-    };
+    useEffect(() => {
+        if (!supabase) return undefined;
 
-    const [user, setUser] = useState(getUserLoged());
+        const applySession = (session) => {
+            if (!session) {
+                setUser({ logged: false });
+                return;
+            }
+            setUser({
+                logged: true,
+                name: session.user.user_metadata?.name || "",
+                mail: session.user.email,
+                token: session.access_token,
+                id: session.user.id,
+            });
+        };
+
+        supabase.auth.getSession().then(({ data }) => applySession(data.session));
+        const { data } = supabase.auth.onAuthStateChange((_event, session) => applySession(session));
+        return () => data.subscription.unsubscribe();
+    }, []);
 
     const [deleteData, setDeleteData] = useState({
         room: "roomName",
@@ -65,12 +70,6 @@ function App() {
         deleted: false,
         euroDate: "14/4/2000",
     });
-
-    Parse.serverURL = "https://parseapi.back4app.com"; // This is your Server URL
-    Parse.initialize(
-        appId,
-        "YxSrKWAZV2eZw5riHbZWbKr75aBjr2NyuKrll60W" // This is your Javascript key
-    );
 
     return (
         <LangContext.Provider value={{ lang, setLang }}>

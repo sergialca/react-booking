@@ -5,7 +5,7 @@ import SubmitButton from "../submitButton/submitButton";
 import Input from "../input/input";
 import FormError from "../formError/formError";
 import { UserContext } from "../../context/user";
-import Parse from "parse";
+import { requireSupabase } from "../../supabaseClient";
 import "./loginForm.scss";
 
 const LoginForm = ({ content, history }) => {
@@ -60,21 +60,36 @@ const LoginForm = ({ content, history }) => {
         const mail = validMail();
         const psw = validPsw();
         if (mail && psw) {
-            Parse.User.logIn(account.mail, account.psw)
-                .then((newUser) => {
+            Promise.resolve()
+                .then(() =>
+                    requireSupabase().auth.signInWithPassword({
+                        email: account.mail,
+                        password: account.psw,
+                    })
+                )
+                .then(({ data, error }) => {
+                    if (error) {
+                        const unverified =
+                            error.code === "email_not_confirmed" ||
+                            /not confirmed/i.test(error.message || "");
+                        setError((prev) => ({
+                            ...prev,
+                            submit: unverified ? content.submitErrorVerify : content.submitError,
+                        }));
+                        return;
+                    }
+                    const sessionUser = data.user;
                     setUser({
                         logged: true,
-                        name: newUser.attributes.name,
-                        mail: newUser.attributes.email,
-                        token: newUser.attributes.sessionToken,
-                        id: newUser.attributes.objectId,
+                        name: sessionUser.user_metadata?.name || "",
+                        mail: sessionUser.email,
+                        token: data.session.access_token,
+                        id: sessionUser.id,
                     });
                     history("");
                 })
-                .catch((error) => {
-                    error.code === 205
-                        ? setError((error) => ({ ...error, submit: content.submitErrorVerify }))
-                        : setError((error) => ({ ...error, submit: content.submitError }));
+                .catch(() => {
+                    setError((prev) => ({ ...prev, submit: content.submitError }));
                 })
                 .finally(() => {
                     setLoading(false);

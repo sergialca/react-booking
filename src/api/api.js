@@ -1,193 +1,141 @@
-import axios from "axios";
-import Parse from "parse";
+import { requireSupabase } from "../supabaseClient";
 
-const url = "https://parseapi.back4app.com";
-const appId = "kn0fKAr5wiPrx2FEjeIlejuE9s8AjEHaF2vY9zj9";
-const normalHeaders = {
-    "X-Parse-Application-Id": appId,
-    "X-Parse-REST-API-Key": "od4o0RAtgQzAICZY1LdEiVrItZN2trnrtcQX4hve",
-    "Content-Type": "application/json",
-};
-const saveError = async (e, description) => {
-    if (e.mail) {
-        await axios({
-            method: "post",
-            url: `${url}/classes/Errors`,
-            headers: normalHeaders,
-            data: {
-                code: 401,
-                error: "Network Error",
-                description,
-            },
-        });
-    } else {
-        await axios({
-            method: "post",
-            url: `${url}/classes/Errors`,
-            headers: normalHeaders,
-            data: {
-                code: e.response.data.code,
-                error: e.response.data.error,
-                description,
-            },
-        });
-    }
+const asRoom = (row) => ({
+    id: row.id,
+    attributes: {
+        name: row.name,
+        times: Array.isArray(row.times) ? row.times.map((slot) => ({ ...slot })) : [],
+    },
+});
 
-    return;
-};
+const asBooking = (row) => ({
+    id: row.id,
+    attributes: {
+        day: row.day,
+        time: row.time,
+        timeId: row.time_id,
+        euroDate: row.euro_date,
+        room: { id: row.room_id },
+    },
+});
 
-export const getValUserLoged = async (token) => {
+const saveError = async (description, details = {}) => {
     try {
-        const val = await axios({
-            method: "get",
-            url: `${url}/users/me`,
-            headers: {
-                "X-Parse-Application-Id": appId,
-                "X-Parse-REST-API-Key": "od4o0RAtgQzAICZY1LdEiVrItZN2trnrtcQX4hve",
-                "X-Parse-Session-Token": token,
-            },
+        const client = requireSupabase();
+        const { data } = await client.auth.getUser();
+        await client.from("errors").insert({
+            user_id: data.user ? data.user.id : null,
+            code: details.code || null,
+            error: details.error || null,
+            description,
         });
-        return val;
     } catch (e) {
-        saveError(e, "El token no se ha encontrado al verificar usuario");
+        return;
+    }
+};
+
+export const getValUserLoged = async () => {
+    try {
+        const { data, error } = await requireSupabase().auth.getUser();
+        if (error || !data.user) return false;
+        return data.user;
+    } catch (e) {
+        saveError("El token no se ha encontrado al verificar usuario");
         return false;
     }
 };
 
 export const isUserLoged = async () => {
-    const session = JSON.parse(localStorage.getItem(`Parse/${appId}/currentUser`));
-    const localUser = session ? await getValUserLoged(session.sessionToken) : "";
-    return localUser ? true : false;
+    try {
+        const { data } = await requireSupabase().auth.getSession();
+        return Boolean(data.session);
+    } catch (e) {
+        return false;
+    }
 };
 
 export const newBooking = async (userId, roomId, day, time, timeId, euroDate) => {
     try {
-        const val = await axios({
-            method: "post",
-            url: `${url}/classes/Booking`,
-            headers: normalHeaders,
-            data: {
-                user: { __type: "Pointer", className: "_User", objectId: userId },
+        const { data, error } = await requireSupabase()
+            .from("bookings")
+            .insert({
+                user_id: userId,
+                room_id: roomId,
                 day,
                 time,
-                timeId,
-                euroDate,
-                room: { __type: "Pointer", className: "Rooms", objectId: roomId },
-            },
-        });
-        return val.data;
+                time_id: timeId,
+                euro_date: euroDate,
+            })
+            .select()
+            .single();
+        if (error) {
+            saveError("Fallo al crear reserva", { error: error.message });
+            return false;
+        }
+        return data;
     } catch (e) {
-        saveError(e, "Fallo al crear reserva");
+        saveError("Fallo al crear reserva", { error: e.message });
         return false;
     }
 };
 
 export const getBooking = async (day, roomId) => {
-    const Booking = Parse.Object.extend("Booking");
-    const queryRoom = new Parse.Query(Booking);
-    queryRoom.equalTo("room", { __type: "Pointer", className: "Rooms", objectId: roomId });
-    queryRoom.select("time");
-    const queryDay = new Parse.Query(Booking);
-    queryDay.equalTo("day", day);
-    queryDay.select("time");
-    const composedQuery = Parse.Query.and(queryRoom, queryDay);
-    let result = await composedQuery.find();
-    return result;
+    const { data, error } = await requireSupabase()
+        .from("bookings")
+        .select("id, day, time, time_id, euro_date, room_id")
+        .eq("day", day)
+        .eq("room_id", roomId);
+    if (error) throw error;
+    return (data || []).map(asBooking);
 };
 
 export const getRooms = async () => {
-    const rooms = Parse.Object.extend("Rooms");
-    const query = new Parse.Query(rooms);
-    let roomsRes = await query.find();
-    return roomsRes;
+    const { data, error } = await requireSupabase().from("rooms").select("id, name, times").order("name");
+    if (error) throw error;
+    return (data || []).map(asRoom);
 };
 
 export const getRoom = async (roomName) => {
-    const Rooms = Parse.Object.extend("Rooms");
-    const query = new Parse.Query(Rooms);
-    query.equalTo("name", roomName);
-    let res = await query.find();
-    return res;
+    const { data, error } = await requireSupabase()
+        .from("rooms")
+        .select("id, name, times")
+        .eq("name", roomName);
+    if (error) throw error;
+    return (data || []).map(asRoom);
 };
 
 export const getUserBookings = async () => {
-    const Booking = Parse.Object.extend("Booking");
-    const query = new Parse.Query(Booking);
-    query.equalTo("user", Parse.User.current());
-    let result = await query.find();
-    return result;
+    const client = requireSupabase();
+    const { data: userData, error: userError } = await client.auth.getUser();
+    if (userError || !userData.user) return [];
+    const { data, error } = await client
+        .from("bookings")
+        .select("id, day, time, time_id, euro_date, room_id")
+        .eq("user_id", userData.user.id);
+    if (error) throw error;
+    return (data || []).map(asBooking);
 };
 
 export const getRoomById = async (id) => {
-    const Rooms = Parse.Object.extend("Rooms");
-    const query = new Parse.Query(Rooms);
-    let res = await query.get(id);
-    return res;
+    const { data, error } = await requireSupabase()
+        .from("rooms")
+        .select("id, name, times")
+        .eq("id", id)
+        .single();
+    if (error) throw error;
+    return asRoom(data);
 };
 
 export const deleteBooking = async (id) => {
-    const Booking = Parse.Object.extend("Booking");
-    const query = new Parse.Query(Booking);
-    let obToDelete = await query.get(id);
-    await obToDelete.destroy();
-    return;
+    const { error } = await requireSupabase().from("bookings").delete().eq("id", id);
+    if (error) throw error;
 };
 
-export const bookingMail = async (lang, mail, room, dayFormatted, dayEuropean, time) => {
-    try {
-        const send = await axios({
-            method: "post",
-            url: "https://taptime-server.herokuapp.com/api/mail/create",
-            data: {
-                lang,
-                mail,
-                room,
-                dayFormatted,
-                euroDate: dayEuropean,
-                time,
-                www: window.location.host,
-            },
-        });
-        return;
-    } catch (e) {
-        if (e.response) {
-            saveError(e, "Fallo al enviar mail de crear nueva reserva");
-        } else {
-            e.mail = true;
-            saveError(e, "Fallo al enviar mail de crear nueva reserva");
-        }
-        return;
-    }
-};
+export const bookingMail = async () => {};
 
-export const deleteMail = async (lang, mail, room, day, euroDate, time) => {
-    try {
-        const send = await axios({
-            method: "post",
-            url: "https://taptime-server.herokuapp.com/api/mail/delete",
-            data: {
-                lang,
-                mail,
-                room,
-                day,
-                euroDate,
-                time,
-                www: window.location.host,
-            },
-        });
-        return;
-    } catch (e) {
-        if (e.response) {
-            saveError(e, "Fallo al enviar mail de borrar reserva");
-        } else {
-            e.mail = true;
-            saveError(e, "Fallo al enviar mail de borrar reserva");
-        }
-        return;
-    }
-};
+export const deleteMail = async () => {};
 
 export const logout = async () => {
-    const noUser = await Parse.User.logOut();
-    return;
+    const { error } = await requireSupabase().auth.signOut();
+    if (error) throw error;
 };
